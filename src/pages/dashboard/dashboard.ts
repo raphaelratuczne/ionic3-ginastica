@@ -9,18 +9,18 @@ import { IonicPage, NavController } from 'ionic-angular';
 */
 @IonicPage()
 @Component({
-  selector: 'page-welcome',
-  templateUrl: 'welcome.html'
+  selector: 'page-dashboard',
+  templateUrl: 'dashboard.html'
 })
-export class WelcomePage {
+export class DashboardPage {
 
   constructor(public navCtrl: NavController) { }
 
-  login() {
-    this.navCtrl.push('LoginPage');
+  listaAulas() {
+    this.navCtrl.push('AulasPage');
   }
 
-  signup() {
-    this.navCtrl.push('SignupPage');
+  config() {
+    this.navCtrl.push('TabsPage');
   }
 }

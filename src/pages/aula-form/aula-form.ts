@@ -5,10 +5,10 @@ import { IonicPage, NavController, ViewController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-item-create',
-  templateUrl: 'item-create.html'
+  selector: 'page-aula-form',
+  templateUrl: 'aula-form.html'
 })
-export class ItemCreatePage {
+export class AulaFormPage {
   @ViewChild('fileInput') fileInput;
 
   isReadyToSave: boolean;
