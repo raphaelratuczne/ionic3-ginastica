@@ -78,9 +78,11 @@ export class MyApp {
           this.translate.use('zh-cmn-Hant');
         }
       } else {
+        console.log('translate', this.translate.getBrowserLang());
         this.translate.use(this.translate.getBrowserLang());
       }
     } else {
+      console.log('translate');
       this.translate.use('pt-br'); // Set your language here
     }
 

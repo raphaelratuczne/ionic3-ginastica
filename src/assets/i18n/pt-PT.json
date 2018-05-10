@@ -8,7 +8,6 @@
   "TAB1_TITLE": "Items",
   "TAB2_TITLE": "Pesquisa",
   "TAB3_TITLE": "Configurações",
-  "TAB4_TITLE": "Configurações",
 
   "MAP_TITLE": "Mapa",
 
@@ -46,11 +45,5 @@
   "CARDS_TITLE": "Social",
 
   "SEARCH_TITLE": "Pesquisa",
-
-  "LIST_CLASS": "Lista de aulas",
-  "CONFIG": "Configurações",
-  "LIST_CLASS_TITLE": "Aulas Ministradas",
-  "CLASS_CREATE_TITLE": "Nova Aula",
-  "CLASS_EDIT_TITLE": "Alterar Aula",
 
 }
