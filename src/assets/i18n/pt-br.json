@@ -86,6 +86,11 @@
   "COMPANY_PASS": "Senha temporaria",
   "COMPANY_ACTIVE": "Ativa",
   "COMPANY_TEXT_EMAIL": "Texto por email",
-  "COMPANY_TEXT_SAMPLE_EMAIL": "Tetxo padrão por email"
+  "COMPANY_TEXT_SAMPLE_EMAIL": "Tetxo padrão por email",
+
+  "LIST_CITIES": "Lista de cidades",
+  "CITY_CREATE_TITLE": "Nova Cidade",
+  "CITY_EDIT_TITLE": "Alterar Cidade",
+  "CITY_NAME": "Nome da Cidade"
 
 }
