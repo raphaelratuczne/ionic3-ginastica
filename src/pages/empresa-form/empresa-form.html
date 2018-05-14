@@ -1,0 +1,72 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'COMPANY_CREATE_TITLE' | translate }}</ion-title>
+    <!-- <ion-buttons start>
+      <button ion-button (click)="cancel()">
+        <span color="primary" showWhen="ios">
+          {{ 'CANCEL_BUTTON' | translate }}
+        </span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="done()" [disabled]="!isReadyToSave" strong>
+        <span color="primary" showWhen="ios">
+          {{ 'DONE_BUTTON' | translate }}
+        </span>
+        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>{{ 'COMPANY_NAME' | translate }}</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>{{ 'COMPANY_EMAIL' | translate }}</ion-label>
+        <ion-input formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>{{ 'COMPANY_PASS' | translate }}</ion-label>
+        <ion-input formControlName="senha"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>{{ 'COMPANY_ACTIVE' | translate }}</ion-label>
+        <ion-toggle formControlName="ativa"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>{{ 'COMPANY_TEXT_EMAIL' | translate }}</ion-label>
+        <ion-textarea rows="6" formControlName="textoEmail"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button (click)="cancel()" ion-button icon-left color="danger">
+        <ion-icon name="close"></ion-icon>
+        {{ 'CANCEL_BUTTON' | translate }}
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button (click)="done()" ion-button icon-right color="secondary">
+        {{ 'DONE_BUTTON' | translate }}
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

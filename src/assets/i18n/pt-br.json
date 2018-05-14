@@ -8,10 +8,10 @@
   "LOGIN": "Entrar",
   "SIGNUP": "Cadastre-se",
 
-  "TAB1_TITLE": "Itens",
-  "TAB2_TITLE": "Busca",
-  "TAB3_TITLE": "Configurações",
-  "TAB4_TITLE": "Configurações",
+  "TAB1_TITLE": "Empresas",
+  "TAB2_TITLE": "Cidades",
+  "TAB3_TITLE": "Salas",
+  "TAB4_TITLE": "Ausências",
 
   "MAP_TITLE": "Mapa",
 
@@ -58,19 +58,34 @@
   "ITEM_NAME_PLACEHOLDER": "Nome",
   "ITEM_ABOUT_PLACEHOLDER": "Sobre",
 
-  "DONE_BUTTON": "Pronto",
+  "DONE_BUTTON": "Salvar",
   "CANCEL_BUTTON": "Cancelar",
   "DELETE_BUTTON": "Apagar",
+  "EDIT_BUTTON": "Alterar",
 
   "CARDS_TITLE": "Social",
 
   "SEARCH_TITLE": "Busca",
   "SEARCH_PLACEHOLDER": "Procure um item da lista, ex: \"Donald Duck\"",
 
+
+
   "LIST_CLASS": "Lista de aulas",
-  "CONFIG": "Configurações",
   "LIST_CLASS_TITLE": "Aulas Ministradas",
   "CLASS_CREATE_TITLE": "Nova Aula",
-  "CLASS_EDIT_TITLE": "Alterar Aula"
+  "CLASS_EDIT_TITLE": "Alterar Aula",
+
+  "CONFIG": "Configurações",
+
+  "LIST_COMPANIES": "Lista de empresas",
+  "COMPANY_CREATE_TITLE": "Nova Empresa",
+  "COMPANY_EDIT_TITLE": "Alterar Empresa",
+  "COMPANY_EDIT_EMAIL_TITLE": "Email Padrão para Empresas",
+  "COMPANY_NAME": "Nome da Empresa",
+  "COMPANY_EMAIL": "E-mail",
+  "COMPANY_PASS": "Senha temporaria",
+  "COMPANY_ACTIVE": "Ativa",
+  "COMPANY_TEXT_EMAIL": "Texto por email",
+  "COMPANY_TEXT_SAMPLE_EMAIL": "Tetxo padrão por email"
 
 }
