@@ -15,7 +15,7 @@ Aplicativo para gerenciar aulas de ginastica laboral em empresas.
    └─ [Alterar texto email]
   └─ [Cidades] (Listar/Excluir)
    └─ [Adicionar/Editar]
-  └─ [Areas] (Listar/Excluir)
+  └─ [Salas] (Listar/Excluir)
    └─ [Adicionar/Editar]
   └─ [Ausencias] (Listar/Excluir)
    └─ [Adicionar/Editar]
@@ -77,16 +77,16 @@ Pode ir para a tela Add/Editar cidades.
 Adiciona ou altera uma nova cidade.
 Relaciona com uma empresa.
 
-#### Areas
+#### Salas
 
- Lista as Areas Cadastradas.
+ Lista as Salas Cadastradas.
  Pode excluir (se não tiver aulas relacionadas).
- Pode ir para a tela Add/Editar Areas
+ Pode ir para a tela Add/Editar Salas
 
 
-##### Add/Editar Areas
+##### Add/Editar Salas
 
-Adiciona ou altera uma area.
+Adiciona ou altera uma sala.
 
 #### Ausencias
 

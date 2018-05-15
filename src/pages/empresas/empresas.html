@@ -29,6 +29,9 @@
       </ion-item>
 
       <ion-item-options>
+        <button ion-button color="primary" (click)="enviarEmail(item)">
+          {{ 'SEND_EMAIL_BUTTON' | translate }}
+        </button>
         <button ion-button color="secondary" (click)="editItem(item)">
           {{ 'EDIT_BUTTON' | translate }}
         </button>

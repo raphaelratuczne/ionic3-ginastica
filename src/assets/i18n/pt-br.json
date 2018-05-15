@@ -62,6 +62,7 @@
   "CANCEL_BUTTON": "Cancelar",
   "DELETE_BUTTON": "Apagar",
   "EDIT_BUTTON": "Alterar",
+  "SEND_EMAIL_BUTTON": "Enviar E-mail",
 
   "CARDS_TITLE": "Social",
 
@@ -69,15 +70,22 @@
   "SEARCH_PLACEHOLDER": "Procure um item da lista, ex: \"Donald Duck\"",
 
 
-
   "LIST_CLASS": "Lista de aulas",
   "LIST_CLASS_TITLE": "Aulas Ministradas",
   "CLASS_CREATE_TITLE": "Nova Aula",
   "CLASS_EDIT_TITLE": "Alterar Aula",
+  "CLASS_DATE": "Data",
+  "CLASS_COMPANY": "Empresa",
+  "CLASS_CITY": "Ponto",
+  "CLASS_AREA": "Grupo",
+  "CLASS_POTENTIAL": "Potencial",
+  "CLASS_PARTICIPANTS": "Participantes",
+  "CLASS_ABSENCE": "Falta",
+  "CLASS_OBSERVATIONS": "Observações",
 
   "CONFIG": "Configurações",
 
-  "LIST_COMPANIES": "Lista de empresas",
+  "LIST_COMPANIES": "Lista de Empresas",
   "COMPANY_CREATE_TITLE": "Nova Empresa",
   "COMPANY_EDIT_TITLE": "Alterar Empresa",
   "COMPANY_EDIT_EMAIL_TITLE": "Email Padrão para Empresas",
@@ -88,9 +96,19 @@
   "COMPANY_TEXT_EMAIL": "Texto por email",
   "COMPANY_TEXT_SAMPLE_EMAIL": "Tetxo padrão por email",
 
-  "LIST_CITIES": "Lista de cidades",
+  "LIST_CITIES": "Lista de Cidades",
   "CITY_CREATE_TITLE": "Nova Cidade",
   "CITY_EDIT_TITLE": "Alterar Cidade",
-  "CITY_NAME": "Nome da Cidade"
+  "CITY_NAME": "Nome da Cidade",
+
+  "LIST_AREAS": "Lista de Salas",
+  "AREA_CREATE_TITLE": "Nova Sala",
+  "AREA_EDIT_TITLE": "Alterar Sala",
+  "AREA_NAME": "Nome da Sala",
+
+  "LIST_ABSENCES": "Lista de Ausencias",
+  "ABSENCE_CREATE_TITLE": "Nova Ausência",
+  "ABSENCE_EDIT_TITLE": "Alterar Ausência",
+  "ABSENCE_NAME": "Descrição da Ausência"
 
 }

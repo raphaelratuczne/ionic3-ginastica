@@ -11,8 +11,8 @@ import { IonicPage, NavController } from 'ionic-angular';
 export class TabsPage {
   tab1Root: any = 'EmpresasPage';
   tab2Root: any = 'CidadesPage';
-  tab3Root: any = 'SettingsPage';
-  tab4Root: any = 'SettingsPage';
+  tab3Root: any = 'SalasPage';
+  tab4Root: any = 'FaltasPage';
 
   tab1Title = " ";
   tab2Title = " ";

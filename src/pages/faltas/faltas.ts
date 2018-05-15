@@ -7,27 +7,39 @@ import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-empresas',
-  templateUrl: 'empresas.html'
+  selector: 'page-faltas',
+  templateUrl: 'faltas.html'
 })
-export class EmpresasPage {
+export class FaltasPage {
 
   currentItems = [
     {
       id: 1,
-      nome: 'Empresa Teste',
-      email: 'empresateste@empresa.com',
-      senha: '123456',
-      ativa: true,
-      textoEmail: 'texto'
+      nome: 'Sessão Realizada'
     },
     {
       id: 2,
-      nome: 'Empresa Teste2',
-      email: 'empresateste2@empresa2.com',
-      senha: '123456',
-      ativa: false,
-      textoEmail: 'texto'
+      nome: 'Doença'
+    },
+    {
+      id: 3,
+      nome: 'Atraso'
+    },
+    {
+      id: 4,
+      nome: 'Dispensa da Empresa'
+    },
+    {
+      id: 5,
+      nome: 'Atestado'
+    },
+    {
+      id: 6,
+      nome: 'Cancelamento de Sessão'
+    },
+    {
+      id: 7,
+      nome: 'Reunião'
     }
   ];
 
@@ -41,7 +53,7 @@ export class EmpresasPage {
   }
 
   addItem() {
-    let addModal = this.modalCtrl.create('EmpresaFormPage');
+    let addModal = this.modalCtrl.create('FaltaFormPage');
     addModal.onDidDismiss(item => {
       if (item) {
         this.currentItems.push(item);
@@ -51,7 +63,7 @@ export class EmpresasPage {
   }
 
   editItem(item) {
-    let addModal = this.modalCtrl.create('EmpresaFormPage', { item: item });
+    let addModal = this.modalCtrl.create('FaltaFormPage', { item: item });
     addModal.onDidDismiss(item => {
       if (item) {
         this.currentItems.push(item);
@@ -63,8 +75,8 @@ export class EmpresasPage {
   deleteItem(item) {
     // this.items.delete(item);
     let confirm = this.alertCtrl.create({
-      title: 'Excluir Empresa',
-      message: 'Tem certeza que deseja excluir essa empresa?',
+      title: 'Excluir Falta',
+      message: 'Tem certeza que deseja excluir essa falta?',
       buttons: [
         {
           text: 'Cancelar',
@@ -81,11 +93,4 @@ export class EmpresasPage {
     confirm.present();
   }
 
-  enviarEmail(item) {
-
-  }
-
-  editarTextoEmail() {
-    this.navCtrl.push('EmpresaEmailFormPage');
-  }
 }

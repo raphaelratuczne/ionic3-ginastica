@@ -7,27 +7,27 @@ import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-empresas',
-  templateUrl: 'empresas.html'
+  selector: 'page-salas',
+  templateUrl: 'salas.html'
 })
-export class EmpresasPage {
+export class SalasPage {
 
   currentItems = [
     {
       id: 1,
-      nome: 'Empresa Teste',
-      email: 'empresateste@empresa.com',
-      senha: '123456',
-      ativa: true,
-      textoEmail: 'texto'
+      nome: 'Atendimento'
     },
     {
       id: 2,
-      nome: 'Empresa Teste2',
-      email: 'empresateste2@empresa2.com',
-      senha: '123456',
-      ativa: false,
-      textoEmail: 'texto'
+      nome: 'Gerência'
+    },
+    {
+      id: 3,
+      nome: 'Produção'
+    },
+    {
+      id: 4,
+      nome: 'Secretaria'
     }
   ];
 
@@ -41,7 +41,7 @@ export class EmpresasPage {
   }
 
   addItem() {
-    let addModal = this.modalCtrl.create('EmpresaFormPage');
+    let addModal = this.modalCtrl.create('SalaFormPage');
     addModal.onDidDismiss(item => {
       if (item) {
         this.currentItems.push(item);
@@ -51,7 +51,7 @@ export class EmpresasPage {
   }
 
   editItem(item) {
-    let addModal = this.modalCtrl.create('EmpresaFormPage', { item: item });
+    let addModal = this.modalCtrl.create('SalaFormPage', { item: item });
     addModal.onDidDismiss(item => {
       if (item) {
         this.currentItems.push(item);
@@ -63,8 +63,8 @@ export class EmpresasPage {
   deleteItem(item) {
     // this.items.delete(item);
     let confirm = this.alertCtrl.create({
-      title: 'Excluir Empresa',
-      message: 'Tem certeza que deseja excluir essa empresa?',
+      title: 'Excluir Sala',
+      message: 'Tem certeza que deseja excluir essa sala?',
       buttons: [
         {
           text: 'Cancelar',
@@ -81,11 +81,4 @@ export class EmpresasPage {
     confirm.present();
   }
 
-  enviarEmail(item) {
-
-  }
-
-  editarTextoEmail() {
-    this.navCtrl.push('EmpresaEmailFormPage');
-  }
 }
