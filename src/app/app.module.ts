@@ -35,14 +35,7 @@ export function provideSettings(storage: Storage) {
   });
 }
 
-const firebaseAppConfig = {
-  apiKey: "AIzaSyCsMzVoSIFUXNClgZyig483CKU98QmbFJ4",
-  authDomain: "ger-ginastica-elaboral.firebaseapp.com",
-  databaseURL: "https://ger-ginastica-elaboral.firebaseio.com",
-  projectId: "ger-ginastica-elaboral",
-  storageBucket: "ger-ginastica-elaboral.appspot.com",
-  messagingSenderId: "307812532193"
-};
+const firebaseAppConfig = JSON.parse(atob('eyJhcGlLZXkiOiJBSXphU3lDc016Vm9TSUZVWE5DbGdaeWlnNDgzQ0tVOThRbWJGSjQiLCJhdXRoRG9tYWluIjoiZ2VyLWdpbmFzdGljYS1lbGFib3JhbC5maXJlYmFzZWFwcC5jb20iLCJkYXRhYmFzZVVSTCI6Imh0dHBzOi8vZ2VyLWdpbmFzdGljYS1lbGFib3JhbC5maXJlYmFzZWlvLmNvbSIsInByb2plY3RJZCI6Imdlci1naW5hc3RpY2EtZWxhYm9yYWwiLCJzdG9yYWdlQnVja2V0IjoiZ2VyLWdpbmFzdGljYS1lbGFib3JhbC5hcHBzcG90LmNvbSIsIm1lc3NhZ2luZ1NlbmRlcklkIjoiMzA3ODEyNTMyMTkzIn0='));
 
 @NgModule({
   declarations: [
