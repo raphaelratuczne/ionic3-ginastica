@@ -8,6 +8,7 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { AngularFireModule } from 'angularfire2';
 
 import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
@@ -34,6 +35,15 @@ export function provideSettings(storage: Storage) {
   });
 }
 
+const firebaseAppConfig = {
+  apiKey: "AIzaSyCsMzVoSIFUXNClgZyig483CKU98QmbFJ4",
+  authDomain: "ger-ginastica-elaboral.firebaseapp.com",
+  databaseURL: "https://ger-ginastica-elaboral.firebaseio.com",
+  projectId: "ger-ginastica-elaboral",
+  storageBucket: "ger-ginastica-elaboral.appspot.com",
+  messagingSenderId: "307812532193"
+};
+
 @NgModule({
   declarations: [
     MyApp
@@ -49,7 +59,8 @@ export function provideSettings(storage: Storage) {
       }
     }),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseAppConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
