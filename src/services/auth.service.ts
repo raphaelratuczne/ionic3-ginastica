@@ -24,7 +24,7 @@ export class AuthService {
 	// }
 
 	get authenticated(): boolean {
-	  return this.user !== null;
+	  return this.user !== null && this.user !== undefined;
 	}
 
 	// getEmail() {
