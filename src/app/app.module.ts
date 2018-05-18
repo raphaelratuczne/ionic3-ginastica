@@ -13,6 +13,7 @@ import { AngularFireModule } from 'angularfire2';
 import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
+import { CoreModule } from './core.module';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -53,6 +54,7 @@ const firebaseAppConfig = JSON.parse(atob('eyJhcGlLZXkiOiJBSXphU3lDc016Vm9TSUZVW
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
+    CoreModule.forRoot(),
     AngularFireModule.initializeApp(firebaseAppConfig)
   ],
   bootstrap: [IonicApp],

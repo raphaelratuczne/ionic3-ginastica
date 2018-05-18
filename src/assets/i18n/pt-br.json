@@ -46,6 +46,7 @@
   "LOGIN_TITLE": "Entrar",
   "LOGIN_ERROR": "Não foi possível entrar na sua conta. Verifique seus dados e tente novamente.",
   "LOGIN_BUTTON": "Entrar",
+
   "SIGNUP_TITLE": "Cadastre-se",
   "SIGNUP_ERROR": "Não foi possível criar sua conta. Verifique seus dados e tente novamente.",
   "SIGNUP_BUTTON": "Cadastre-se",
@@ -70,7 +71,6 @@
   "SEARCH_PLACEHOLDER": "Procure um item da lista, ex: \"Donald Duck\"",
 
 
-  "LIST_CLASS": "Lista de aulas",
   "LIST_CLASS_TITLE": "Aulas Ministradas",
   "CLASS_CREATE_TITLE": "Nova Aula",
   "CLASS_EDIT_TITLE": "Alterar Aula",
@@ -83,7 +83,9 @@
   "CLASS_ABSENCE": "Falta",
   "CLASS_OBSERVATIONS": "Observações",
 
+  "LIST_CLASS": "Lista de aulas",
   "CONFIG": "Configurações",
+  "LOGOUT_BUTTON": "Sair",
 
   "LIST_COMPANIES": "Lista de Empresas",
   "COMPANY_CREATE_TITLE": "Nova Empresa",

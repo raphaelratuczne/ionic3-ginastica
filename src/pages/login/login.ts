@@ -4,6 +4,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 // import { User } from '../../providers';
 import { MainPage } from '../';
+import { AuthService } from '../../services/auth.service';
 
 @IonicPage()
 @Component({
@@ -20,18 +21,19 @@ export class LoginPage {
   // };
 
   // Our translated text strings
-  private loginErrorString: string;
+  // private loginErrorString: string;
 
   constructor(
     public navCtrl: NavController,
     // public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService
+    public translateService: TranslateService,
+    private authService: AuthService
   ) {
 
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-    })
+    // this.translateService.get('LOGIN_ERROR').subscribe((value) => {
+    //   this.loginErrorString = value;
+    // })
   }
 
   // Attempt to login in through our User service
@@ -50,4 +52,13 @@ export class LoginPage {
     // });
     this.navCtrl.push(MainPage);
   }
+
+  loginWithGoogle() {
+    this.authService.signInWithGoogle()
+      .then(
+        () => this.navCtrl.push(MainPage),
+        error => console.log(error.message)
+      );
+  }
+
 }

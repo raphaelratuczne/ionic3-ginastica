@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <form (submit)="doLogin()">
+  <!-- <form (submit)="doLogin()"> -->
     <ion-list>
 
       <!-- <ion-item>
@@ -31,9 +31,9 @@
       </ion-item> -->
 
       <div padding>
-        <button ion-button color="primary" block>{{ 'LOGIN_BUTTON' | translate }}</button>
+        <button ion-button color="primary" block (click)="loginWithGoogle()">{{ 'LOGIN_BUTTON' | translate }}</button>
       </div>
 
     </ion-list>
-  </form>
+  <!-- </form> -->
 </ion-content>

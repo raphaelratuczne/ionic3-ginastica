@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
-/**
- * The Welcome Page is a splash page that quickly describes the app,
- * and then directs the user to create an account or log in.
- * If you'd like to immediately put the user onto a login/signup page,
- * we recommend not using the Welcome page.
-*/
+import { AuthService } from '../../services/auth.service';
+
 @IonicPage()
 @Component({
   selector: 'page-dashboard',
@@ -14,7 +10,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class DashboardPage {
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController, private authService: AuthService) { }
 
   listaAulas() {
     this.navCtrl.push('AulasPage');
@@ -22,5 +18,9 @@ export class DashboardPage {
 
   config() {
     this.navCtrl.push('TabsPage');
+  }
+
+  logout() {
+    this.authService.signOut().then(() => {this.navCtrl.push('LoginPage')});
   }
 }

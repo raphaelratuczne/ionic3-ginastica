@@ -4,8 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 
-import { FirstRunPage } from '../pages';
+import { FirstRunPage, MainPage } from '../pages';
 import { Settings } from '../providers';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   template: `<ion-menu [content]="content">
@@ -53,13 +54,16 @@ export class MyApp {
     settings: Settings,
     private config: Config,
     private statusBar: StatusBar,
-    private splashScreen: SplashScreen
+    private splashScreen: SplashScreen,
+    private authService: AuthService
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.rootPage = this.authService.authenticated ? MainPage : FirstRunPage;
     });
     this.initTranslate();
   }
@@ -67,7 +71,7 @@ export class MyApp {
   initTranslate() {
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang('pt-br');
-    const browserLang = this.translate.getBrowserLang();
+    // const browserLang = this.translate.getBrowserLang();
 
     // if (browserLang) {
     //   if (browserLang === 'zh') {
