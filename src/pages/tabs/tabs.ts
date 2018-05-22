@@ -14,10 +14,10 @@ export class TabsPage {
   tab3Root: any = 'SalasPage';
   tab4Root: any = 'FaltasPage';
 
-  tab1Title = " ";
-  tab2Title = " ";
-  tab3Title = " ";
-  tab4Title = " ";
+  tab1Title = ' ';
+  tab2Title = ' ';
+  tab3Title = ' ';
+  tab4Title = ' ';
 
   constructor(public navCtrl: NavController, public translateService: TranslateService) {
     translateService.get(['TAB1_TITLE', 'TAB2_TITLE', 'TAB3_TITLE', 'TAB4_TITLE']).subscribe(values => {

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
-// import { Item } from '../../models/item';
-// import { Items } from '../../providers';
+import { Falta } from '../../models/falta';
+import { FaltaProvider } from '../../providers/falta.provider';
 
 @IonicPage()
 @Component({
@@ -12,44 +12,21 @@ import { AlertController } from 'ionic-angular';
 })
 export class FaltasPage {
 
-  currentItems = [
-    {
-      id: 1,
-      nome: 'Sessão Realizada'
-    },
-    {
-      id: 2,
-      nome: 'Doença'
-    },
-    {
-      id: 3,
-      nome: 'Atraso'
-    },
-    {
-      id: 4,
-      nome: 'Dispensa da Empresa'
-    },
-    {
-      id: 5,
-      nome: 'Atestado'
-    },
-    {
-      id: 6,
-      nome: 'Cancelamento de Sessão'
-    },
-    {
-      id: 7,
-      nome: 'Reunião'
-    }
-  ];
+  currentItems = [];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    private faltaProvider: FaltaProvider
+  ) {
     // this.currentItems = this.items.query();
     // empresa-form
 
   }
 
   ionViewDidLoad() {
+    this.currentItems = this.faltaProvider.lista();
   }
 
   addItem() {

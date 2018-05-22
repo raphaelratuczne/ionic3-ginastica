@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
+// import { AngularFireAuth,  } from 'angularfire2/auth';
+// import * as firebase from 'firebase';
+// import AuthProvider = firebase.auth.AuthProvider;
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase';
-import AuthProvider = firebase.auth.AuthProvider;
+import { auth } from 'firebase/app';
 
 @Injectable()
 export class AuthService {
-	private user: firebase.User;
+	// private user: firebase.User;
+	private user;
 	public data;
 
-	constructor(public afAuth: AngularFireAuth) {
-		afAuth.authState.subscribe(user => {
+	constructor(public angularFireAuth: AngularFireAuth) {
+		angularFireAuth.authState.subscribe(user => {
 			this.user = user;
 		});
 	}
@@ -33,22 +36,24 @@ export class AuthService {
 
 	signOut(): Promise<void> {
 		this.data = null;
-	  return this.afAuth.auth.signOut();
+	  return this.angularFireAuth.auth.signOut();
 	}
 
 	signInWithGoogle() {
 			console.log('Sign in with google');
-			return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+			// return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+			return this.oauthSignIn(new auth.GoogleAuthProvider());
 	}
 
-	private oauthSignIn(provider: AuthProvider) {
+	// private oauthSignIn(provider: AuthProvider) {
+	private oauthSignIn(provider) {
 		if (!(<any>window).cordova) {
-			return this.afAuth.auth.signInWithPopup(provider)
+			return this.angularFireAuth.auth.signInWithPopup(provider)
 			.then(res => this.data = res);
 		} else {
-			return this.afAuth.auth.signInWithRedirect(provider)
+			return this.angularFireAuth.auth.signInWithRedirect(provider)
 			.then(() => {
-				return this.afAuth.auth.getRedirectResult().then( result => {
+				return this.angularFireAuth.auth.getRedirectResult().then( result => {
 					// This gives you a Google Access Token.
 					// You can use it to access the Google API.
 					let token = result.credential.accessToken;

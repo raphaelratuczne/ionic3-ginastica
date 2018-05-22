@@ -15,7 +15,12 @@ import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
 // import { CoreModule } from './core.module';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../services/auth.service';
+import { CidadeProvider } from '../providers/cidade.provider';
+import { EmpresaProvider } from '../providers/empresa.provider';
+import { FaltaProvider } from '../providers/falta.provider';
+import { SalaProvider } from '../providers/sala.provider';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -74,7 +79,12 @@ const firebaseAppConfig = JSON.parse(atob('eyJhcGlLZXkiOiJBSXphU3lDc016Vm9TSUZVW
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
-    AngularFireAuth
+    AngularFireAuth,
+    AngularFirestore,
+    CidadeProvider,
+    EmpresaProvider,
+    FaltaProvider,
+    SalaProvider
   ]
 })
 export class AppModule { }

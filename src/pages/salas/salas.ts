@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
-// import { Item } from '../../models/item';
-// import { Items } from '../../providers';
+import { Sala } from '../../models/sala';
+import { SalaProvider } from '../../providers/sala.provider';
 
 @IonicPage()
 @Component({
@@ -12,32 +12,21 @@ import { AlertController } from 'ionic-angular';
 })
 export class SalasPage {
 
-  currentItems = [
-    {
-      id: 1,
-      nome: 'Atendimento'
-    },
-    {
-      id: 2,
-      nome: 'Gerência'
-    },
-    {
-      id: 3,
-      nome: 'Produção'
-    },
-    {
-      id: 4,
-      nome: 'Secretaria'
-    }
-  ];
+  currentItems = [];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    private salaProvider: SalaProvider
+  ) {
     // this.currentItems = this.items.query();
     // empresa-form
 
   }
 
   ionViewDidLoad() {
+    this.currentItems = this.salaProvider.lista();
   }
 
   addItem() {

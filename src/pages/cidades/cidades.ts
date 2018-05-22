@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
-// import { Item } from '../../models/item';
-// import { Items } from '../../providers';
+import { Cidade } from '../../models/cidade';
+import { CidadeProvider } from '../../providers/cidade.provider';
 
 @IonicPage()
 @Component({
@@ -12,47 +13,44 @@ import { AlertController } from 'ionic-angular';
 })
 export class CidadesPage {
 
-  currentItems = [
-    {
-      id: 1,
-      nome: 'Itajaí'
-    },
-    {
-      id: 2,
-      nome: 'Navegantes'
-    }
-  ];
+  public cidades: Observable<Cidade[]>;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
-    // this.currentItems = this.items.query();
-    // empresa-form
-
-  }
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    private cidadeProvider: CidadeProvider
+  ) { }
 
   ionViewDidLoad() {
+    // this.cidades = this.cidadeProvider.cidades;
+    this.cidades = this.cidadeProvider.lista();
+    // this.currentItems = this.cidadeProvider.lista();
   }
 
   addItem() {
     let addModal = this.modalCtrl.create('CidadeFormPage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.currentItems.push(item);
+    addModal.onDidDismiss(cidade => {
+      if (cidade) {
+        // this.currentItems.push(item);
+        this.cidadeProvider.adicionar(cidade);
       }
     })
     addModal.present();
   }
 
-  editItem(item) {
-    let addModal = this.modalCtrl.create('CidadeFormPage', { item: item });
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.currentItems.push(item);
+  editItem(cidade: Cidade) {
+    let addModal = this.modalCtrl.create('CidadeFormPage', { item: Cidade });
+    addModal.onDidDismiss(cidade => {
+      if (cidade) {
+        // this.currentItems.push(item);
+        this.cidadeProvider.editar(cidade);
       }
     })
     addModal.present();
   }
 
-  deleteItem(item) {
+  deleteItem(cidade:Cidade) {
     // this.items.delete(item);
     let confirm = this.alertCtrl.create({
       title: 'Excluir Cidade',
@@ -65,12 +63,13 @@ export class CidadesPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.currentItems.splice(this.currentItems.indexOf(item), 1);
+            // this.currentItems.splice(this.currentItems.indexOf(item), 1);
+            this.cidadeProvider.excluir(cidade.id);
           }
         }
       ]
     });
     confirm.present();
   }
-  
+
 }
