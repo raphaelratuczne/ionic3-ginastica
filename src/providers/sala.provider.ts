@@ -1,44 +1,43 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Sala } from '../models/sala';
+import { AuthService } from '../services/auth.service';
+
 
 @Injectable()
 export class SalaProvider {
 
-  private salas: Sala[] = [
-    {
-      id: '1',
-      nome: 'Atendimento'
-    },
-    {
-      id: '2',
-      nome: 'Gerência'
-    },
-    {
-      id: '3',
-      nome: 'Produção'
-    },
-    {
-      id: '4',
-      nome: 'Secretaria'
-    }
-  ];
+  private salasRef: AngularFireList<Sala>;
+  public salas: Observable<Sala[]>;
 
-  constructor() {  }
+  constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
+    this.authService.getUserId()
+      .then(uId => {
+        this.salasRef = this.angularFireDatabase.list<Sala>(uId + '/salas');
+        this.salas = this.salasRef.snapshotChanges().pipe(
+        map(changes =>
+            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+          )
+        );
+      });
+  }
 
-  public lista(): Sala[] {
+  public lista(): Observable<Sala[]> {
     return this.salas;
   }
 
   public adicionar(sala:Sala): void {
-
+    this.salasRef.push( new Sala(sala.nome) );
   }
 
   public editar(sala:Sala): void {
-
+    this.salasRef.update(sala.key, new Sala(sala.nome));
   }
 
-  public excluir(id:string): void {
-
+  public excluir(key:string): void {
+    this.salasRef.remove(key);
   }
 }

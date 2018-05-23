@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
 import { Empresa } from '../../models/empresa';
 import { EmpresaProvider } from '../../providers/empresa.provider';
@@ -12,44 +13,40 @@ import { EmpresaProvider } from '../../providers/empresa.provider';
 })
 export class EmpresasPage {
 
-  currentItems = [];
+  public empresas: Observable<Empresa[]>;
 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     private empresaProvider: EmpresaProvider
-  ) {
-    // this.currentItems = this.items.query();
-    // empresa-form
-
-  }
+  ) { }
 
   ionViewDidLoad() {
-    this.currentItems = this.empresaProvider.lista();
+    this.empresas = this.empresaProvider.lista();
   }
 
   addItem() {
     let addModal = this.modalCtrl.create('EmpresaFormPage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.currentItems.push(item);
+    addModal.onDidDismiss(empresa => {
+      if (empresa) {
+        this.empresaProvider.adicionar(empresa);
       }
     })
     addModal.present();
   }
 
-  editItem(item) {
-    let addModal = this.modalCtrl.create('EmpresaFormPage', { item: item });
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.currentItems.push(item);
+  editItem(empresa:Empresa) {
+    let addModal = this.modalCtrl.create('EmpresaFormPage', { item: empresa });
+    addModal.onDidDismiss(empresa => {
+      if (empresa) {
+        this.empresaProvider.editar(empresa);
       }
     })
     addModal.present();
   }
 
-  deleteItem(item) {
+  deleteItem(empresa:Empresa) {
     // this.items.delete(item);
     let confirm = this.alertCtrl.create({
       title: 'Excluir Empresa',
@@ -62,7 +59,7 @@ export class EmpresasPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.currentItems.splice(this.currentItems.indexOf(item), 1);
+            this.empresaProvider.excluir(empresa.key);
           }
         }
       ]

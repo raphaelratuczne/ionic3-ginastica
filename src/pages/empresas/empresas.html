@@ -19,23 +19,23 @@
   </ion-fab>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let item of currentItems">
+    <ion-item-sliding *ngFor="let empresa of empresas | async">
       <ion-item>
         <ion-label>
-          <h2>{{ item.nome }}</h2>
-          <p>{{ item.email }}</p>
+          <h2>{{ empresa.nome }}</h2>
+          <p>{{ empresa.email }}</p>
         </ion-label>
-        <ion-toggle [checked]="item.ativa"></ion-toggle>
+        <ion-toggle [checked]="empresa.ativa"></ion-toggle>
       </ion-item>
 
       <ion-item-options>
-        <button ion-button color="primary" (click)="enviarEmail(item)">
+        <button ion-button color="primary" (click)="enviarEmail(empresa)">
           {{ 'SEND_EMAIL_BUTTON' | translate }}
         </button>
-        <button ion-button color="secondary" (click)="editItem(item)">
+        <button ion-button color="secondary" (click)="editItem(empresa)">
           {{ 'EDIT_BUTTON' | translate }}
         </button>
-        <button ion-button color="danger" (click)="deleteItem(item)">
+        <button ion-button color="danger" (click)="deleteItem(empresa)">
           {{ 'DELETE_BUTTON' | translate }}
         </button>
       </ion-item-options>

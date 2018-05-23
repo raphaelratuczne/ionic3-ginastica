@@ -23,16 +23,13 @@ export class CidadesPage {
   ) { }
 
   ionViewDidLoad() {
-    // this.cidades = this.cidadeProvider.cidades;
     this.cidades = this.cidadeProvider.lista();
-    // this.currentItems = this.cidadeProvider.lista();
   }
 
   addItem() {
     let addModal = this.modalCtrl.create('CidadeFormPage');
     addModal.onDidDismiss(cidade => {
       if (cidade) {
-        // this.currentItems.push(item);
         this.cidadeProvider.adicionar(cidade);
       }
     })
@@ -40,18 +37,16 @@ export class CidadesPage {
   }
 
   editItem(cidade: Cidade) {
-    let addModal = this.modalCtrl.create('CidadeFormPage', { item: Cidade });
-    addModal.onDidDismiss(cidade => {
+    let editModal = this.modalCtrl.create('CidadeFormPage', { item: cidade });
+    editModal.onDidDismiss(cidade => {
       if (cidade) {
-        // this.currentItems.push(item);
         this.cidadeProvider.editar(cidade);
       }
     })
-    addModal.present();
+    editModal.present();
   }
 
   deleteItem(cidade:Cidade) {
-    // this.items.delete(item);
     let confirm = this.alertCtrl.create({
       title: 'Excluir Cidade',
       message: 'Tem certeza que deseja excluir essa cidade?',
@@ -63,7 +58,6 @@ export class CidadesPage {
         {
           text: 'Excluir',
           handler: () => {
-            // this.currentItems.splice(this.currentItems.indexOf(item), 1);
             this.cidadeProvider.excluir(cidade.key);
           }
         }

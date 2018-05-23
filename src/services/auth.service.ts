@@ -34,6 +34,12 @@ export class AuthService {
 	//   return this.user && this.user.email;
 	// }
 
+	public async getUserId() {
+		if (this.user) {
+			return this.user.uid;
+		}
+	}
+
 	signOut(): Promise<void> {
 		this.data = null;
 	  return this.angularFireAuth.auth.signOut();

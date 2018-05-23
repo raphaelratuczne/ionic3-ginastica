@@ -4,22 +4,24 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Cidade } from '../models/cidade';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class CidadeProvider {
 
   private cidadesRef: AngularFireList<Cidade>;
-  // private cidade: AngularFirestoreDocument<Cidade>;
   public cidades: Observable<Cidade[]>;
 
-  constructor(private angularFireDatabase: AngularFireDatabase) {
-    this.cidadesRef = this.angularFireDatabase.list<Cidade>('cidades');
-    // this.cidades = this.cidadesCollection.valueChanges();
-    this.cidades = this.cidadesRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
-    );
+  constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
+    this.authService.getUserId()
+      .then(uId => {
+        this.cidadesRef = this.angularFireDatabase.list<Cidade>(uId + '/cidades');
+        this.cidades = this.cidadesRef.snapshotChanges().pipe(
+        map(changes =>
+            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+          )
+        );
+      });
   }
 
   public lista(): Observable<Cidade[]> {

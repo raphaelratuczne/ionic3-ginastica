@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 
+import { Sala } from '../../models/sala';
+
 @IonicPage()
 @Component({
   selector: 'page-sala-form',
@@ -9,9 +11,9 @@ import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angul
 })
 export class SalaFormPage {
 
-  isReadyToSave: boolean;
+  // isReadyToSave: boolean;
 
-  item: any;
+  item: Sala;
 
   form: FormGroup;
 
@@ -19,7 +21,7 @@ export class SalaFormPage {
     this.item = navParams.get('item') || null;
 
     this.form = formBuilder.group({
-      id:[null],
+      key:[null],
       nome: ['', Validators.required]
     });
 
