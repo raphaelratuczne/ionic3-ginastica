@@ -15,7 +15,7 @@ import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
 // import { CoreModule } from './core.module';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 import { CidadeProvider } from '../providers/cidade.provider';
 import { EmpresaProvider } from '../providers/empresa.provider';
@@ -80,7 +80,7 @@ const firebaseAppConfig = JSON.parse(atob('eyJhcGlLZXkiOiJBSXphU3lDc016Vm9TSUZVW
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     AngularFireAuth,
-    AngularFirestore,
+    AngularFireDatabase,
     CidadeProvider,
     EmpresaProvider,
     FaltaProvider,

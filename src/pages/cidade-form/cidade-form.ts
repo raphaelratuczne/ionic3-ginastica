@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 
+import { Cidade } from '../../models/cidade';
+
 @IonicPage()
 @Component({
   selector: 'page-cidade-form',
@@ -9,9 +11,9 @@ import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angul
 })
 export class CidadeFormPage {
 
-  isReadyToSave: boolean;
+  // isReadyToSave: boolean;
 
-  item: any;
+  item: Cidade;
 
   form: FormGroup;
 
@@ -19,7 +21,7 @@ export class CidadeFormPage {
     this.item = navParams.get('item') || null;
 
     this.form = formBuilder.group({
-      id:[null],
+      key:[null],
       nome: ['', Validators.required]
     });
 

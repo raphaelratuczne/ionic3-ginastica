@@ -64,7 +64,7 @@ export class CidadesPage {
           text: 'Excluir',
           handler: () => {
             // this.currentItems.splice(this.currentItems.indexOf(item), 1);
-            this.cidadeProvider.excluir(cidade.id);
+            this.cidadeProvider.excluir(cidade.key);
           }
         }
       ]

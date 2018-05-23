@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Cidade } from '../models/cidade';
 
 @Injectable()
 export class CidadeProvider {
 
-  private cidadesCollection: AngularFirestoreCollection<Cidade>;
-  private cidade: AngularFirestoreDocument<Cidade>;
+  private cidadesRef: AngularFireList<Cidade>;
+  // private cidade: AngularFirestoreDocument<Cidade>;
   public cidades: Observable<Cidade[]>;
 
-  constructor(private angularFirestore: AngularFirestore) {
-    this.cidadesCollection = this.angularFirestore.collection<Cidade>('cidades');
-    this.cidades = this.cidadesCollection.valueChanges();
+  constructor(private angularFireDatabase: AngularFireDatabase) {
+    this.cidadesRef = this.angularFireDatabase.list<Cidade>('cidades');
+    // this.cidades = this.cidadesCollection.valueChanges();
+    this.cidades = this.cidadesRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
   }
 
   public lista(): Observable<Cidade[]> {
@@ -21,18 +27,17 @@ export class CidadeProvider {
   }
 
   public adicionar(cidade:Cidade): void {
-    this.cidadesCollection.add(cidade);
+    this.cidadesRef.push( new Cidade(cidade.nome) );
   }
 
   public editar(cidade:Cidade): void {
-    this.cidade = this.angularFirestore.doc<Cidade>('cidades/' + cidade.id);
-    this.cidade.update(cidade);
-    this.cidade = null;
+    this.cidadesRef.update(cidade.key, new Cidade(cidade.nome));
   }
 
-  public excluir(id:string): void {
-    this.cidade = this.angularFirestore.doc<Cidade>('cidades/' + id);
-    this.cidade.delete();
-    this.cidade = null;
+  public excluir(key:string): void {
+    this.cidadesRef.remove(key);
   }
 }
+
+// update do rxjs
+// npm install rxjs@6 rxjs-compat@6 --save

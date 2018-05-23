@@ -1,4 +1,4 @@
 export class Cidade {
-  id: string;
-  nome: string;
+  key?: string;
+  constructor(public nome:string) {}
 }
