@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Camera } from '@ionic-native/camera';
-import { IonicPage, NavController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
+
+import { Aula } from '../../models/aula';
 
 @IonicPage()
 @Component({
@@ -9,25 +10,26 @@ import { IonicPage, NavController, ViewController } from 'ionic-angular';
   templateUrl: 'aula-form.html'
 })
 export class AulaFormPage {
-  @ViewChild('fileInput') fileInput;
 
-  isReadyToSave: boolean;
-
-  item: any;
+  item: Aula;
 
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, navParams: NavParams) {
+    this.item = navParams.get('item') || null;
+
     this.form = formBuilder.group({
-      profilePic: [''],
-      name: ['', Validators.required],
-      about: ['']
+      key:[null],
+      data: [(this.item.data || null), Validators.required],
+      empresaKey: [(this.item.empresaKey || null), Validators.required],
+      cidadeKey: [(this.item.cidadeKey || null), Validators.required],
+      salaKey: [(this.item.salaKey || null), Validators.required],
+      potencial: [(this.item.potencial || null), Validators.required],
+      participantes: [(this.item.participantes || null), Validators.required],
+      faltaKey: [(this.item.faltaKey || null)],
+      observacao: [(this.item.observacao || null)]
     });
 
-    // Watch the form for changes, and
-    this.form.valueChanges.subscribe((v) => {
-      this.isReadyToSave = this.form.valid;
-    });
   }
 
   ionViewDidLoad() {

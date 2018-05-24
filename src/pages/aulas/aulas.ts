@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
-import { Item } from '../../models/item';
-import { Items } from '../../providers';
+import { Aula } from '../../models/aula';
+import { AulaProvider } from '../../providers/aula.provider';
 
 @IonicPage()
 @Component({
@@ -10,36 +12,62 @@ import { Items } from '../../providers';
   templateUrl: 'aulas.html'
 })
 export class AulasPage {
-  currentItems: Item[];
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
-  }
+  public aulas: Observable<Aula[]>;
+
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    private aulaProvider: AulaProvider
+  ) { }
 
   ionViewDidLoad() {
+    this.aulas = this.aulaProvider.lista();
   }
 
   addItem() {
     let addModal = this.modalCtrl.create('AulaFormPage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.items.add(item);
+    addModal.onDidDismiss(aula => {
+      if (aula) {
+        this.aulaProvider.adicionar(aula);
       }
     })
     addModal.present();
   }
 
-  editItem(item) {
-    // this.items.delete(item);
+  editItem(aula:Aula) {
+    let editModal = this.modalCtrl.create('AulaFormPage', { item: aula });
+    editModal.onDidDismiss(aula => {
+      if (aula) {
+        this.aulaProvider.editar(aula);
+      }
+    })
+    editModal.present();
   }
 
-  deleteItem(item) {
-    this.items.delete(item);
-  }
-
-  openItem(item: Item) {
-    this.navCtrl.push('ItemDetailPage', {
-      item: item
+  deleteItem(aula:Aula) {
+    let confirm = this.alertCtrl.create({
+      title: 'Excluir Aula',
+      message: 'Tem certeza que deseja excluir essa aula?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {}
+        },
+        {
+          text: 'Excluir',
+          handler: () => {
+            this.aulaProvider.excluir(aula.key);
+          }
+        }
+      ]
     });
+    confirm.present();
   }
+
+  public getInfoAula(aula:Aula): string {
+    return `${aula.data} ${aula.salaNome} (${aula.participantes}/${aula.potencial})`;
+  }
+
 }
