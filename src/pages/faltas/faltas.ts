@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
 import { Falta } from '../../models/falta';
 import { FaltaProvider } from '../../providers/falta.provider';
@@ -12,44 +13,40 @@ import { FaltaProvider } from '../../providers/falta.provider';
 })
 export class FaltasPage {
 
-  currentItems = [];
+  public faltas: Observable<Falta[]>;
 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     private faltaProvider: FaltaProvider
-  ) {
-    // this.currentItems = this.items.query();
-    // empresa-form
-
-  }
+  ) { }
 
   ionViewDidLoad() {
-    this.currentItems = this.faltaProvider.lista();
+    this.faltas = this.faltaProvider.lista();
   }
 
   addItem() {
     let addModal = this.modalCtrl.create('FaltaFormPage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.currentItems.push(item);
+    addModal.onDidDismiss(falta => {
+      if (falta) {
+        this.faltaProvider.adicionar(falta);
       }
     })
     addModal.present();
   }
 
-  editItem(item) {
-    let addModal = this.modalCtrl.create('FaltaFormPage', { item: item });
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.currentItems.push(item);
+  editItem(falta:Falta) {
+    let addModal = this.modalCtrl.create('FaltaFormPage', { item: falta });
+    addModal.onDidDismiss(falta => {
+      if (falta) {
+        this.faltaProvider.editar(falta);
       }
     })
     addModal.present();
   }
 
-  deleteItem(item) {
+  deleteItem(falta:Falta) {
     // this.items.delete(item);
     let confirm = this.alertCtrl.create({
       title: 'Excluir Falta',
@@ -62,7 +59,7 @@ export class FaltasPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.currentItems.splice(this.currentItems.indexOf(item), 1);
+            this.faltaProvider.excluir(falta.key);
           }
         }
       ]

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 
+import { Falta } from '../../models/falta';
+
 @IonicPage()
 @Component({
   selector: 'page-falta-form',
@@ -9,9 +11,7 @@ import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angul
 })
 export class FaltaFormPage {
 
-  isReadyToSave: boolean;
-
-  item: any;
+  item: Falta;
 
   form: FormGroup;
 
@@ -19,7 +19,7 @@ export class FaltaFormPage {
     this.item = navParams.get('item') || null;
 
     this.form = formBuilder.group({
-      id:[null],
+      key:[null],
       nome: ['', Validators.required]
     });
 

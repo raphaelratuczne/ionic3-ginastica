@@ -19,7 +19,7 @@ export class EmpresaFormPage {
     this.item = navParams.get('item') || null;
 
     this.form = formBuilder.group({
-      id:[null],
+      key:[null],
       nome: ['', Validators.required],
       email: ['', Validators.required],
       senha: ['', Validators.required],

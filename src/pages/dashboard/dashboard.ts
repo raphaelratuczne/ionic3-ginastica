@@ -10,7 +10,18 @@ import { AuthService } from '../../services/auth.service';
 })
 export class DashboardPage {
 
-  constructor(public navCtrl: NavController, private authService: AuthService) { }
+  constructor(public navCtrl: NavController, private authService: AuthService) {
+    this.authService.autenticou().subscribe(ok => {
+      if (!ok)
+        this.navCtrl.push('LoginPage');
+    });
+  }
+
+  // ionViewDidEnter() {
+  //   if (this.authService.authenticated) {
+  //     this.navCtrl.push('LoginPage');
+  //   }
+  // }
 
   listaAulas() {
     this.navCtrl.push('AulasPage');

@@ -1,4 +1,4 @@
 export class Falta {
-  id: string;
-  nome: string;
+  key?: string;
+  constructor(public nome: string) {}
 }

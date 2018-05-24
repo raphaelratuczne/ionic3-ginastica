@@ -30,10 +30,13 @@ export class LoginPage {
     public translateService: TranslateService,
     private authService: AuthService
   ) {
-
     // this.translateService.get('LOGIN_ERROR').subscribe((value) => {
     //   this.loginErrorString = value;
     // })
+    this.authService.autenticou().subscribe(ok => {
+      if (ok)
+        this.navCtrl.push('DashboardPage');
+    });
   }
 
   // Attempt to login in through our User service

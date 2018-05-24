@@ -3,6 +3,9 @@ import { IonicPage, MenuController, NavController, Platform } from 'ionic-angula
 
 import { TranslateService } from '@ngx-translate/core';
 
+import { MainPage } from '../';
+import { AuthService } from '../../services/auth.service';
+
 export interface Slide {
   title: string;
   description: string;
@@ -23,7 +26,8 @@ export class TutorialPage {
     public navCtrl: NavController,
     public menu: MenuController,
     translate: TranslateService,
-    public platform: Platform
+    public platform: Platform,
+    private authService: AuthService
   ) {
     this.dir = platform.dir();
     translate.get([
@@ -70,6 +74,10 @@ export class TutorialPage {
   ionViewDidEnter() {
     // the root left menu should be disabled on the tutorial page
     this.menu.enable(false);
+
+    if (this.authService.authenticated) {
+      this.navCtrl.push(MainPage);
+    }
   }
 
   ionViewWillLeave() {
