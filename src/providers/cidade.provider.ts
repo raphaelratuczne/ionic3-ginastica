@@ -29,11 +29,14 @@ export class CidadeProvider {
   }
 
   public adicionar(cidade:Cidade): void {
-    this.cidadesRef.push( new Cidade(cidade.nome) );
+    delete cidade.key;
+    this.cidadesRef.push(cidade);
   }
 
   public editar(cidade:Cidade): void {
-    this.cidadesRef.update(cidade.key, new Cidade(cidade.nome));
+    const key = cidade.key;
+    delete cidade.key;
+    this.cidadesRef.update(key, cidade);
   }
 
   public excluir(key:string): void {

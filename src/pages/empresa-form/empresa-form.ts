@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 
+import { Empresa } from '../../models/empresa';
+
 @IonicPage()
 @Component({
   selector: 'page-empresa-form',
@@ -9,9 +11,7 @@ import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angul
 })
 export class EmpresaFormPage {
 
-  isReadyToSave: boolean;
-
-  item: any;
+  item: Empresa;
 
   form: FormGroup;
 
@@ -24,7 +24,8 @@ export class EmpresaFormPage {
       email: ['', Validators.required],
       senha: ['', Validators.required],
       ativa: [true],
-      textoEmail: ['Texto enviado por email', Validators.required]
+      textoEmail: ['Texto enviado por email', Validators.required],
+      usuarioId:[null]
     });
 
     if (this.item)

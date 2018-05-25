@@ -3,14 +3,13 @@ export class Aula {
   empresaNome?: string;
   cidadeNome?: string;
   salaNome?: string;
-  constructor(
-    public data: string,
-    public empresaKey: string,
-    public cidadeKey: string,
-    public salaKey: string,
-    public potencial: number,
-    public participantes: number,
-    public faltaKey: string,
-    public observacao: string
-  ) { }
+  faltaNome?: string;
+  data: string;
+  empresaKey: string;
+  cidadeKey: string;
+  salaKey: string;
+  potencial: number;
+  participantes: number;
+  faltaKey: string;
+  observacao: string;
 }

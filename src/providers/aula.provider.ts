@@ -30,11 +30,21 @@ export class AulaProvider {
   }
 
   public adicionar(aula:Aula): void {
-    this.aulasRef.push( aula );
+    delete aula.key;
+    delete aula.empresaNome;
+    delete aula.cidadeNome;
+    delete aula.salaNome;
+    delete aula.faltaNome;
+    this.aulasRef.push(aula);
   }
 
   public editar(aula:Aula): void {
-    this.aulasRef.update(aula.key, aula);
+    const key = aula.key;
+    delete aula.empresaNome;
+    delete aula.cidadeNome;
+    delete aula.salaNome;
+    delete aula.faltaNome;
+    this.aulasRef.update(key, aula);
   }
 
   public excluir(key:string): void {

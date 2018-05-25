@@ -12,10 +12,12 @@ export class EmpresaProvider {
 
   private empresasRef: AngularFireList<Empresa>;
   public empresas: Observable<Empresa[]>;
+  private uId: string;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
     this.authService.getUserId()
       .then(uId => {
+        this.uId = uId;
         this.empresasRef = this.angularFireDatabase.list<Empresa>(uId + '/empresas');
         this.empresas = this.empresasRef.snapshotChanges().pipe(
         map(changes =>
@@ -30,11 +32,15 @@ export class EmpresaProvider {
   }
 
   public adicionar(empresa:Empresa): void {
-    this.empresasRef.push( empresa );
+    empresa.usuarioId = this.uId;
+    delete empresa.key;
+    this.empresasRef.push(empresa);
   }
 
   public editar(empresa:Empresa): void {
-    this.empresasRef.update(empresa.key, empresa);
+    const key = empresa.key;
+    delete empresa.key;
+    this.empresasRef.update(key, empresa);
   }
 
   public excluir(key:string): void {

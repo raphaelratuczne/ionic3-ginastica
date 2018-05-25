@@ -1,11 +1,9 @@
 export class Empresa {
   key?: string;
-  constructor(
-    public ativa: boolean,
-    public email: string,
-    public nome: string,
-    public senha: string,
-    public textoEmail: string,
-    public usuarioId: string
-  ) { }
+  ativa: boolean;
+  email: string;
+  nome: string;
+  senha: string;
+  textoEmail: string;
+  usuarioId: string;
 }

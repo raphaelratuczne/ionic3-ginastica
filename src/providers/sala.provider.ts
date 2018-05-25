@@ -30,11 +30,14 @@ export class SalaProvider {
   }
 
   public adicionar(sala:Sala): void {
-    this.salasRef.push( new Sala(sala.nome) );
+    delete sala.key;
+    this.salasRef.push(sala);
   }
 
   public editar(sala:Sala): void {
-    this.salasRef.update(sala.key, new Sala(sala.nome));
+    const key = sala.key;
+    delete sala.key;
+    this.salasRef.update(key, sala);
   }
 
   public excluir(key:string): void {

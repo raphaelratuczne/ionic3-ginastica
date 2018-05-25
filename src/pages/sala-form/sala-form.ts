@@ -11,8 +11,6 @@ import { Sala } from '../../models/sala';
 })
 export class SalaFormPage {
 
-  // isReadyToSave: boolean;
-
   item: Sala;
 
   form: FormGroup;

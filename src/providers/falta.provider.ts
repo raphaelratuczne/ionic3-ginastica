@@ -34,7 +34,7 @@ export class FaltaProvider {
                 'Cancelamento de Sessão',
                 'Reunião'
               ].forEach(falta => {
-                this.adicionar(new Falta(falta));
+                this.adicionar({key:null, nome:falta});
               })
             }
           });
@@ -46,11 +46,14 @@ export class FaltaProvider {
     }
 
     public adicionar(falta:Falta): void {
-      this.faltasRef.push( new Falta(falta.nome) );
+      delete falta.key;
+      this.faltasRef.push(falta);
     }
 
     public editar(falta:Falta): void {
-      this.faltasRef.update(falta.key, new Falta(falta.nome));
+      const key = falta.key;
+      delete falta.key;
+      this.faltasRef.update(key, falta);
     }
 
     public excluir(key:string): void {
