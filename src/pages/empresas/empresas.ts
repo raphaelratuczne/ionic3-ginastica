@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { AlertController, App } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
 import { Empresa } from '../../models/empresa';
@@ -19,7 +19,8 @@ export class EmpresasPage {
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    private empresaProvider: EmpresaProvider
+    private empresaProvider: EmpresaProvider,
+    private app: App
   ) { }
 
   ionViewDidLoad() {
@@ -67,11 +68,15 @@ export class EmpresasPage {
     confirm.present();
   }
 
-  enviarEmail(item) {
+  public enviarEmail(item) {
 
   }
 
-  editarTextoEmail() {
+  public editarTextoEmail() {
     this.navCtrl.push('EmpresaEmailFormPage');
+  }
+
+  public goToDashvoard() {
+    this.app.goBack();
   }
 }

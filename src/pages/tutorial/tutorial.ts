@@ -3,7 +3,7 @@ import { IonicPage, MenuController, NavController, Platform } from 'ionic-angula
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { MainPage } from '../';
+// import { MainPage } from '../';
 import { AuthService } from '../../services/auth.service';
 
 export interface Slide {
@@ -76,7 +76,7 @@ export class TutorialPage {
     this.menu.enable(false);
 
     if (this.authService.authenticated) {
-      this.navCtrl.push(MainPage);
+      this.navCtrl.push('DashboardPage');
     }
   }
 

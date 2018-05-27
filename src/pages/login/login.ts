@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 // import { User } from '../../providers';
-import { MainPage } from '../';
+// import { MainPage } from '../';
 import { AuthService } from '../../services/auth.service';
 
 @IonicPage()
@@ -53,13 +53,13 @@ export class LoginPage {
     //   });
     //   toast.present();
     // });
-    this.navCtrl.push(MainPage);
+    this.navCtrl.push('DashboardPage');
   }
 
   loginWithGoogle() {
     this.authService.signInWithGoogle()
       .then(
-        () => this.navCtrl.push(MainPage),
+        () => this.navCtrl.push('DashboardPage'),
         error => console.log(error.message)
       );
   }

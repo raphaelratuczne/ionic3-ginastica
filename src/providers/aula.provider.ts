@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Aula } from '../models/aula';
-import { AuthService } from '../services/auth.service';
 
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AulaProvider {
@@ -14,19 +14,31 @@ export class AulaProvider {
   public aulas: Observable<Aula[]>;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
-    this.authService.getUserId()
-      .then(uId => {
-        this.aulasRef = this.angularFireDatabase.list<Aula>(uId + '/aulas');
-        this.aulas = this.aulasRef.snapshotChanges().pipe(
-        map(changes =>
-            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-          )
-        );
-      });
+    this.carregaDados();
+  }
+
+  private carregaDados(): Observable<Aula[]> {
+    return Observable.create(sub => {
+      this.authService.getUserId()
+        .then(uId => {
+          console.log('uId',uId);
+          this.aulasRef = this.angularFireDatabase.list<Aula>(uId + '/aulas');
+          this.aulas = this.aulasRef.snapshotChanges().pipe(
+            map(changes =>
+              changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+            )
+          );
+          this.aulas.subscribe(d => sub.next(d));
+        });
+    }).share();
   }
 
   public lista(): Observable<Aula[]> {
-    return this.aulas;
+    if (this.aulas) {
+      return this.aulas;
+    } else {
+      return this.carregaDados();
+    }
   }
 
   public adicionar(aula:Aula): void {

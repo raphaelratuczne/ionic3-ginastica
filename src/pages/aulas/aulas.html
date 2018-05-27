@@ -22,7 +22,7 @@
     <ion-item-sliding *ngFor="let aula of aulas | async">
       <button ion-item>
         <h2>{{ getInfoAula(aula) }}</h2>
-        <p>{{ aula.empresaNome + ' - ' + aula.cidadeNome }}</p>
+        <p>{{ aula.empresaKey + ' - ' + aula.cidadeKey }}</p>
       </button>
 
       <ion-item-options>

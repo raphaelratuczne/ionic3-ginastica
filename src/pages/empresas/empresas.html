@@ -1,6 +1,12 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goToDashvoard()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
     <ion-title>{{ 'LIST_COMPANIES' | translate }}</ion-title>
 
     <ion-buttons end>

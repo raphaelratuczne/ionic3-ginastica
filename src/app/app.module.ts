@@ -13,7 +13,6 @@ import { AngularFireModule } from 'angularfire2';
 import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
-// import { CoreModule } from './core.module';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
@@ -21,6 +20,7 @@ import { CidadeProvider } from '../providers/cidade.provider';
 import { EmpresaProvider } from '../providers/empresa.provider';
 import { FaltaProvider } from '../providers/falta.provider';
 import { SalaProvider } from '../providers/sala.provider';
+import { AulaProvider } from '../providers/aula.provider';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -61,7 +61,6 @@ const firebaseAppConfig = JSON.parse(atob('eyJhcGlLZXkiOiJBSXphU3lDc016Vm9TSUZVW
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    // CoreModule.forRoot(),
     AngularFireModule.initializeApp(firebaseAppConfig)
   ],
   bootstrap: [IonicApp],
@@ -84,7 +83,8 @@ const firebaseAppConfig = JSON.parse(atob('eyJhcGlLZXkiOiJBSXphU3lDc016Vm9TSUZVW
     CidadeProvider,
     EmpresaProvider,
     FaltaProvider,
-    SalaProvider
+    SalaProvider,
+    AulaProvider
   ]
 })
 export class AppModule { }

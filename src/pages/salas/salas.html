@@ -1,9 +1,15 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>{{ 'LIST_AREAS' | translate }}</ion-title>
-  </ion-navbar>
 
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goToDashvoard()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    
+    <ion-title>{{ 'LIST_AREAS' | translate }}</ion-title>
+
+  </ion-navbar>
 </ion-header>
 
 <ion-content>

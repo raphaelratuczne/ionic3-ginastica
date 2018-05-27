@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { AlertController, App } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
 import { Falta } from '../../models/falta';
@@ -19,7 +19,8 @@ export class FaltasPage {
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    private faltaProvider: FaltaProvider
+    private faltaProvider: FaltaProvider,
+    private app: App
   ) { }
 
   ionViewDidLoad() {
@@ -67,4 +68,7 @@ export class FaltasPage {
     confirm.present();
   }
 
+  public goToDashvoard() {
+    this.app.goBack();
+  }
 }

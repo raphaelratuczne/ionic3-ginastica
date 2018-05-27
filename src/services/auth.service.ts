@@ -38,10 +38,17 @@ export class AuthService {
 	//   return this.user && this.user.email;
 	// }
 
-	public async getUserId() {
-		if (this.user) {
-			return this.user.uid;
-		}
+	public getUserId(): Promise<string> {
+		return new Promise(resolve => {
+			console.log(this.user);
+			if (this.user) {
+				resolve(this.user.uid);
+			} else {
+				this.angularFireAuth.authState.subscribe(user => {
+					resolve(user.uid);
+				});
+			}
+		});
 	}
 
 	signOut(): Promise<void> {

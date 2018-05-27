@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 
-import { FirstRunPage, MainPage } from '../pages';
+// import { FirstRunPage, MainPage } from '../pages';
 import { Settings } from '../providers';
 import { AuthService } from '../services/auth.service';
 
@@ -28,7 +28,7 @@ import { AuthService } from '../services/auth.service';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = FirstRunPage;
+  rootPage = 'TutorialPage';
 
   @ViewChild(Nav) nav: Nav;
 
@@ -63,7 +63,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.rootPage = this.authService.authenticated ? MainPage : FirstRunPage;
+      this.rootPage = this.authService.authenticated ? 'DashboardPage' : 'TutorialPage';
     });
     this.initTranslate();
   }

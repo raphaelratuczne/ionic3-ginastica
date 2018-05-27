@@ -2,96 +2,62 @@
 
   <ion-navbar>
     <ion-title>{{ 'CLASS_CREATE_TITLE' | translate }}</ion-title>
-    <!-- <ion-buttons start>
-      <button ion-button (click)="cancel()">
-        <span color="primary" showWhen="ios">
-          {{ 'CANCEL_BUTTON' | translate }}
-        </span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-buttons end>
-      <button ion-button (click)="done()" [disabled]="!isReadyToSave" strong>
-        <span color="primary" showWhen="ios">
-          {{ 'DONE_BUTTON' | translate }}
-        </span>
-        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
-      </button>
-    </ion-buttons> -->
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-    <!-- <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" /> -->
-    <!-- <div class="profile-image-wrapper" (click)="getPicture()">
-      <div class="profile-image-placeholder" *ngIf="!this.form.controls.profilePic.value">
-        <ion-icon name="add"></ion-icon>
-        <div>
-          {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
-        </div>
-      </div>
-      <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.profilePic.value"></div>
-    </div> -->
 
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="done()">
     <ion-list>
 
       <ion-item>
         <ion-label>{{ 'CLASS_DATE' | translate }}</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY"></ion-datetime>
+        <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_COMPANY' | translate }}</ion-label>
-        <ion-select>
-          <ion-option value="1" checked="true">Empresa 1</ion-option>
-          <ion-option value="2">Empresa 2</ion-option>
-          <ion-option value="3">Empresa 3</ion-option>
+        <ion-select formControlName="empresaKey">
+          <ion-option *ngFor="let empresa of empresas | async" [value]="empresa.key">{{ empresa.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_CITY' | translate }}</ion-label>
-        <ion-select>
-          <ion-option value="1" checked="true">Cidade 1</ion-option>
-          <ion-option value="2">Cidade 2</ion-option>
-          <ion-option value="3">Cidade 3</ion-option>
+        <ion-select formControlName="cidadeKey">
+          <ion-option *ngFor="let cidade of cidades | async" [value]="cidade.key">{{ cidade.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_AREA' | translate }}</ion-label>
-        <ion-select>
-          <ion-option value="1" checked="true">Sala 1</ion-option>
-          <ion-option value="2">Sala 2</ion-option>
-          <ion-option value="3">Sala 3</ion-option>
+        <ion-select formControlName="salaKey">
+          <ion-option *ngFor="let sala of salas | async" [value]="sala.key">{{ sala.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_POTENTIAL' | translate }}</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-input formControlName="potencial" type="number"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_PARTICIPANTS' | translate }}</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-input formControlName="participantes" type="number"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_ABSENCE' | translate }}</ion-label>
-        <ion-select>
-          <ion-option value="1" checked="true">Falta 1</ion-option>
-          <ion-option value="2">Falta 2</ion-option>
-          <ion-option value="3">Falta 3</ion-option>
+        <ion-select formControlName="faltaKey">
+          <ion-option *ngFor="let falta of faltas | async" [value]="falta.key">{{ falta.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label floating>{{ 'CLASS_OBSERVATIONS' | translate }}</ion-label>
-        <ion-textarea rows="6"></ion-textarea>
+        <ion-textarea formControlName="observacao" rows="6"></ion-textarea>
       </ion-item>
 
     </ion-list>
@@ -101,7 +67,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons start>
-      <button (click)="cancel()" ion-button icon-left color="danger">
+      <button (click)="cancel($event)" ion-button icon-left color="danger">
         <ion-icon name="close"></ion-icon>
         {{ 'CANCEL_BUTTON' | translate }}
       </button>

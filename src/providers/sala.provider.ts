@@ -14,19 +14,31 @@ export class SalaProvider {
   public salas: Observable<Sala[]>;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
-    this.authService.getUserId()
-      .then(uId => {
-        this.salasRef = this.angularFireDatabase.list<Sala>(uId + '/salas');
-        this.salas = this.salasRef.snapshotChanges().pipe(
-        map(changes =>
-            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-          )
-        );
-      });
+    this.carregaDados();
+  }
+
+  private carregaDados(): Observable<Sala[]> {
+    return Observable.create(sub => {
+      this.authService.getUserId()
+        .then(uId => {
+          console.log('uId',uId);
+          this.salasRef = this.angularFireDatabase.list<Sala>(uId + '/salas');
+          this.salas = this.salasRef.snapshotChanges().pipe(
+            map(changes =>
+              changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+            )
+          );
+          this.salas.subscribe(d => sub.next(d));
+        });
+    }).share();
   }
 
   public lista(): Observable<Sala[]> {
-    return this.salas;
+    if (this.salas) {
+      return this.salas;
+    } else {
+      return this.carregaDados();
+    }
   }
 
   public adicionar(sala:Sala): void {

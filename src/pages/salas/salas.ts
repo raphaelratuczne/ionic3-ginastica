@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { AlertController, App } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
 import { Sala } from '../../models/sala';
@@ -19,7 +19,8 @@ export class SalasPage {
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    private salaProvider: SalaProvider
+    private salaProvider: SalaProvider,
+    private app: App
   ) { }
 
   ionViewDidLoad() {
@@ -66,4 +67,8 @@ export class SalasPage {
     confirm.present();
   }
 
+  public goToDashvoard() {
+    this.app.goBack();
+  }
+  
 }

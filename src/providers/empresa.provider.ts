@@ -15,20 +15,31 @@ export class EmpresaProvider {
   private uId: string;
 
   constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
-    this.authService.getUserId()
-      .then(uId => {
-        this.uId = uId;
-        this.empresasRef = this.angularFireDatabase.list<Empresa>(uId + '/empresas');
-        this.empresas = this.empresasRef.snapshotChanges().pipe(
-        map(changes =>
-            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-          )
-        );
-      });
+    this.carregaDados();
+  }
+
+  private carregaDados(): Observable<Empresa[]> {
+    return Observable.create(sub => {
+      this.authService.getUserId()
+        .then(uId => {
+          console.log('uId',uId);
+          this.empresasRef = this.angularFireDatabase.list<Empresa>(uId + '/empresas');
+          this.empresas = this.empresasRef.snapshotChanges().pipe(
+            map(changes =>
+              changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+            )
+          );
+          this.empresas.subscribe(d => sub.next(d));
+        });
+    }).share();
   }
 
   public lista(): Observable<Empresa[]> {
-    return this.empresas;
+    if (this.empresas) {
+      return this.empresas;
+    } else {
+      return this.carregaDados();
+    }
   }
 
   public adicionar(empresa:Empresa): void {
