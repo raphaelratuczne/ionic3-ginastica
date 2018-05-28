@@ -1,15 +1,15 @@
 export class Aula {
   key?: string;
-  empresaNome?: string;
-  cidadeNome?: string;
-  salaNome?: string;
-  faltaNome?: string;
+  // empresaNome?: string;
+  // cidadeNome?: string;
+  // salaNome?: string;
+  // faltaNome?: string;
   data: string;
-  empresaKey: string;
-  cidadeKey: string;
-  salaKey: string;
+  empresa: { [key:string]: boolean };
+  cidade: { [key:string]: boolean };
+  sala: { [key:string]: boolean };
   potencial: number;
   participantes: number;
-  faltaKey: string;
+  falta: { [key:string]: boolean };
   observacao: string;
 }

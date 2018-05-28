@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,32 +15,20 @@ export class EmpresaProvider {
   public empresas: Observable<Empresa[]>;
   private uId: string;
 
-  constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
-    this.carregaDados();
-  }
-
-  private carregaDados(): Observable<Empresa[]> {
-    return Observable.create(sub => {
-      this.authService.getUserId()
-        .then(uId => {
-          console.log('uId',uId);
-          this.empresasRef = this.angularFireDatabase.list<Empresa>(uId + '/empresas');
-          this.empresas = this.empresasRef.snapshotChanges().pipe(
-            map(changes =>
-              changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-            )
-          );
-          this.empresas.subscribe(d => sub.next(d));
-        });
-    }).share();
+  constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) {
+        this.uId = user.uid;
+        this.empresasRef = this.angularFireDatabase.list<Empresa>(this.uId + '/empresas');
+        this.empresas = this.empresasRef.snapshotChanges().pipe(
+          map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
+        );
+      }
+    });
   }
 
   public lista(): Observable<Empresa[]> {
-    if (this.empresas) {
-      return this.empresas;
-    } else {
-      return this.carregaDados();
-    }
+    return this.empresas;
   }
 
   public adicionar(empresa:Empresa): void {

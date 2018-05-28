@@ -10,9 +10,7 @@ export class AuthService {
 	public data;
 
 	constructor(public angularFireAuth: AngularFireAuth) {
-		angularFireAuth.authState.subscribe(user => {
-			this.user = user;
-		});
+		this.loadUserId();
 	}
 
 	// signInWithEmail(credentials) {
@@ -23,6 +21,20 @@ export class AuthService {
 	// signUp(credentials) {
 	// 	return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
 	// }
+
+	private loadUserId(): Observable<string> {
+		return this['subscriptor'] || ( this['subscriptor'] =
+	 	Observable.create(sub => {
+			this.angularFireAuth.authState.subscribe(user => {
+				if (user) {
+					this.user = user;
+					sub.next(this.user.uid);
+					sub.complete();
+					this['subscriptor'] = null;
+				}
+			});
+		}).share() );
+	}
 
 	get authenticated(): boolean {
 	  return this.user !== null && this.user !== undefined;
@@ -44,8 +56,8 @@ export class AuthService {
 			if (this.user) {
 				resolve(this.user.uid);
 			} else {
-				this.angularFireAuth.authState.subscribe(user => {
-					resolve(user.uid);
+				this.loadUserId().subscribe(uid => {
+					resolve(uid);
 				});
 			}
 		});

@@ -49,12 +49,12 @@ export class AulaFormPage {
     this.form = formBuilder.group({
       key:[null],
       data: [dia, Validators.required],
-      empresaKey: [null, Validators.required],
-      cidadeKey: [null, Validators.required],
-      salaKey: [null, Validators.required],
+      empresa: [null, Validators.required],
+      cidade: [null, Validators.required],
+      sala: [null, Validators.required],
       potencial: [null, Validators.required],
       participantes: [null, Validators.required],
-      faltaKey: [null],
+      falta: [null],
       observacao: [null]
     });
 
@@ -86,6 +86,22 @@ export class AulaFormPage {
   done() {
     console.log(this.form.value);
     if (!this.form.valid) { return; }
+    // const v = this.form.value;
+    // const aula:Aula = {
+    //   key: v.key,
+    //   data: v.data,
+    //   potencial: v.potencial,
+    //   participantes: v.participantes,
+    //   observacao: v.observacao,
+    //   empresa: null,
+    //   cidade: null,
+    //   sala: null,
+    //   falta: null
+    // }
     this.viewCtrl.dismiss(this.form.value);
+  }
+
+  public getObj(key:string): { [key:string]: boolean } {
+    return { [key]: true };
   }
 }

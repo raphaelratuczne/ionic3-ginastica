@@ -19,21 +19,21 @@
 
       <ion-item>
         <ion-label>{{ 'CLASS_COMPANY' | translate }}</ion-label>
-        <ion-select formControlName="empresaKey">
+        <ion-select formControlName="empresa">
           <ion-option *ngFor="let empresa of empresas | async" [value]="empresa.key">{{ empresa.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_CITY' | translate }}</ion-label>
-        <ion-select formControlName="cidadeKey">
+        <ion-select formControlName="cidade">
           <ion-option *ngFor="let cidade of cidades | async" [value]="cidade.key">{{ cidade.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_AREA' | translate }}</ion-label>
-        <ion-select formControlName="salaKey">
+        <ion-select formControlName="sala">
           <ion-option *ngFor="let sala of salas | async" [value]="sala.key">{{ sala.nome }}</ion-option>
         </ion-select>
       </ion-item>
@@ -50,7 +50,7 @@
 
       <ion-item>
         <ion-label>{{ 'CLASS_ABSENCE' | translate }}</ion-label>
-        <ion-select formControlName="faltaKey">
+        <ion-select formControlName="falta">
           <ion-option *ngFor="let falta of faltas | async" [value]="falta.key">{{ falta.nome }}</ion-option>
         </ion-select>
       </ion-item>

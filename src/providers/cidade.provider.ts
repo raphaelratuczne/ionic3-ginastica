@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Cidade } from '../models/cidade';
-import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class CidadeProvider {
@@ -12,32 +12,20 @@ export class CidadeProvider {
   private cidadesRef: AngularFireList<Cidade>;
   public cidades: Observable<Cidade[]>;
 
-  constructor(private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
-    this.carregaDados();
-  }
-
-  private carregaDados(): Observable<Cidade[]> {
-    return Observable.create(sub => {
-      this.authService.getUserId()
-        .then(uId => {
-          console.log('uId',uId);
-          this.cidadesRef = this.angularFireDatabase.list<Cidade>(uId + '/cidades');
-          this.cidades = this.cidadesRef.snapshotChanges().pipe(
-            map(changes =>
-              changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-            )
-          );
-          this.cidades.subscribe(d => sub.next(d));
-        });
-    }).share();
+  constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) {
+        const uid = user.uid;
+        this.cidadesRef = this.angularFireDatabase.list<Cidade>(uid + '/cidades');
+        this.cidades = this.cidadesRef.snapshotChanges().pipe(
+          map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
+        );
+      }
+    });
   }
 
   public lista(): Observable<Cidade[]> {
-    if (this.cidades) {
-      return this.cidades;
-    } else {
-      return this.carregaDados();
-    }
+    return this.cidades;
   }
 
   public adicionar(cidade:Cidade): void {
