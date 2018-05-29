@@ -14,27 +14,27 @@
 
       <ion-item>
         <ion-label>{{ 'CLASS_DATE' | translate }}</ion-label>
-        <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY"></ion-datetime>
+        <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" cancelText="Cancelar" okText="Ok"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_COMPANY' | translate }}</ion-label>
-        <ion-select formControlName="empresa">
-          <ion-option *ngFor="let empresa of empresas | async" [value]="empresa.key">{{ empresa.nome }}</ion-option>
+        <ion-select formControlName="empresa" cancelText="Cancelar" okText="Ok">
+          <ion-option *ngFor="let empresa of empresas" [value]="empresa.key">{{ empresa.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_CITY' | translate }}</ion-label>
-        <ion-select formControlName="cidade">
-          <ion-option *ngFor="let cidade of cidades | async" [value]="cidade.key">{{ cidade.nome }}</ion-option>
+        <ion-select formControlName="cidade"  cancelText="Cancelar" okText="Ok">
+          <ion-option *ngFor="let cidade of cidades" [value]="cidade.key">{{ cidade.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_AREA' | translate }}</ion-label>
-        <ion-select formControlName="sala">
-          <ion-option *ngFor="let sala of salas | async" [value]="sala.key">{{ sala.nome }}</ion-option>
+        <ion-select formControlName="sala" cancelText="Cancelar" okText="Ok">
+          <ion-option *ngFor="let sala of salas" [value]="sala.key">{{ sala.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
@@ -50,8 +50,8 @@
 
       <ion-item>
         <ion-label>{{ 'CLASS_ABSENCE' | translate }}</ion-label>
-        <ion-select formControlName="falta">
-          <ion-option *ngFor="let falta of faltas | async" [value]="falta.key">{{ falta.nome }}</ion-option>
+        <ion-select formControlName="falta" cancelText="Cancelar" okText="Ok">
+          <ion-option *ngFor="let falta of faltas" [value]="falta.key">{{ falta.nome }}</ion-option>
         </ion-select>
       </ion-item>
 

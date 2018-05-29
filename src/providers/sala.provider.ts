@@ -13,19 +13,26 @@ export class SalaProvider {
   public salas: Observable<Sala[]>;
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
+    this.carregar().subscribe();
+  }
+
+  private carregar(): Observable<Sala[]> {
+    return Observable.create(sub => {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         const uid = user.uid;
         this.salasRef = this.angularFireDatabase.list<Sala>(uid + '/salas');
         this.salas = this.salasRef.snapshotChanges().pipe(
           map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
-        );
+        ).share();
+        this.salas.subscribe(salas => sub.next(salas));
       }
     });
+    }).share();
   }
 
   public lista(): Observable<Sala[]> {
-    return this.salas;
+    return this.salas || this.carregar();
   }
 
   public adicionar(sala:Sala): void {

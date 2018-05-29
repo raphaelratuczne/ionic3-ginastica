@@ -13,19 +13,26 @@ export class CidadeProvider {
   public cidades: Observable<Cidade[]>;
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
-    this.angularFireAuth.authState.subscribe(user => {
-      if (user) {
-        const uid = user.uid;
-        this.cidadesRef = this.angularFireDatabase.list<Cidade>(uid + '/cidades');
-        this.cidades = this.cidadesRef.snapshotChanges().pipe(
-          map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
-        );
-      }
-    });
+    this.carregar().subscribe();
+  }
+
+  private carregar(): Observable<Cidade[]> {
+    return Observable.create(sub => {
+      this.angularFireAuth.authState.subscribe(user => {
+        if (user) {
+          const uid = user.uid;
+          this.cidadesRef = this.angularFireDatabase.list<Cidade>(uid + '/cidades');
+          this.cidades = this.cidadesRef.snapshotChanges().pipe(
+            map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
+          ).share();
+          this.cidades.subscribe(cidades => sub.next(cidades));
+        }
+      });
+    }).share();
   }
 
   public lista(): Observable<Cidade[]> {
-    return this.cidades;
+    return this.cidades || this.carregar();
   }
 
   public adicionar(cidade:Cidade): void {

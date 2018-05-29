@@ -14,35 +14,41 @@ export class FaltaProvider {
   public faltas: Observable<Falta[]>;
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
-    this.angularFireAuth.authState.subscribe(user => {
-      if (user) {
-        const uid = user.uid;
-        this.faltasRef = this.angularFireDatabase.list<Falta>(uid + '/faltas');
-        this.faltas = this.faltasRef.snapshotChanges().pipe(
-          map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
-        );
-        this.faltas.first().subscribe(list => {
-          if (list.length == 0) {
-            [
-              'Sessão Realizada',
-              'Doença',
-              'Atraso',
-              'Dispensa da Empresa',
-              'Atestado',
-              'Cancelamento de Sessão',
-              'Reunião'
-            ].forEach(falta => {
-              this.adicionar({key:null, nome:falta});
-            })
-          }
-        });
-      }
-    });
+    this.carregar().subscribe();
   }
 
+  private carregar(): Observable<Falta[]> {
+    return Observable.create(sub => {
+      this.angularFireAuth.authState.subscribe(user => {
+        if (user) {
+          const uid = user.uid;
+          this.faltasRef = this.angularFireDatabase.list<Falta>(uid + '/faltas');
+          this.faltas = this.faltasRef.snapshotChanges().pipe(
+            map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
+          ).share();
+          this.faltas.first().subscribe(list => {
+            if (list.length == 0) {
+              [
+                'Sessão Realizada',
+                'Doença',
+                'Atraso',
+                'Dispensa da Empresa',
+                'Atestado',
+                'Cancelamento de Sessão',
+                'Reunião'
+              ].forEach(falta => {
+                this.adicionar({key:null, nome:falta});
+              })
+            }
+          });
+          this.faltas.subscribe(faltas => sub.next(faltas));
+        }
+      });
+    }).share();
+  }
 
   public lista(): Observable<Falta[]> {
-    return this.faltas;
+    return this.faltas || this.carregar();
   }
 
   public adicionar(falta:Falta): void {

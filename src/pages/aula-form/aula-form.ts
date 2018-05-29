@@ -9,10 +9,7 @@ import { Cidade } from '../../models/cidade';
 import { Sala } from '../../models/sala';
 import { Falta } from '../../models/falta';
 
-import { EmpresaProvider } from '../../providers/empresa.provider';
-import { CidadeProvider } from '../../providers/cidade.provider';
-import { SalaProvider } from '../../providers/sala.provider';
-import { FaltaProvider } from '../../providers/falta.provider';
+import { AulaProvider } from '../../providers/aula.provider';
 
 @IonicPage()
 @Component({
@@ -25,20 +22,17 @@ export class AulaFormPage {
 
   form: FormGroup;
 
-  public empresas: Observable<Empresa[]>;
-  public cidades: Observable<Cidade[]>;
-  public salas: Observable<Sala[]>;
-  public faltas: Observable<Falta[]>;
+  public empresas: Empresa[];
+  public cidades: Cidade[];
+  public salas: Sala[];
+  public faltas: Falta[];
 
   constructor(
     private navCtrl: NavController,
     private viewCtrl: ViewController,
     private formBuilder: FormBuilder,
     private navParams: NavParams,
-    private empresaProvider: EmpresaProvider,
-    private cidadeProvider: CidadeProvider,
-    private salaProvider: SalaProvider,
-    private faltaProvider: FaltaProvider
+    private aulaProvider: AulaProvider
   ) {
     this.item = navParams.get('item') || null;
 
@@ -65,17 +59,10 @@ export class AulaFormPage {
   }
 
   ionViewDidLoad() {
-    // carrega lista de emrpesas
-    this.empresas = this.empresaProvider.lista();
-
-    // carrega lista de cidades
-    this.cidades = this.cidadeProvider.lista();
-
-    // carrega lista de salas
-    this.salas = this.salaProvider.lista();
-
-    // carrega lista de faltas
-    this.faltas = this.faltaProvider.lista();
+    this.empresas = this.aulaProvider.empresas;
+    this.cidades = this.aulaProvider.cidades;
+    this.salas = this.aulaProvider.salas;
+    this.faltas = this.aulaProvider.faltas;
   }
 
   cancel(ev:Event) {
@@ -86,22 +73,7 @@ export class AulaFormPage {
   done() {
     console.log(this.form.value);
     if (!this.form.valid) { return; }
-    // const v = this.form.value;
-    // const aula:Aula = {
-    //   key: v.key,
-    //   data: v.data,
-    //   potencial: v.potencial,
-    //   participantes: v.participantes,
-    //   observacao: v.observacao,
-    //   empresa: null,
-    //   cidade: null,
-    //   sala: null,
-    //   falta: null
-    // }
     this.viewCtrl.dismiss(this.form.value);
   }
 
-  public getObj(key:string): { [key:string]: boolean } {
-    return { [key]: true };
-  }
 }

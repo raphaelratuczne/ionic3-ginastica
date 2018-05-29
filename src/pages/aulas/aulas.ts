@@ -13,8 +13,11 @@ import { AulaProvider } from '../../providers/aula.provider';
 })
 export class AulasPage {
 
-  public aulas: Observable<Aula[]>;
+  public datas: Observable<string[]>;
+  public aulas: Aula[];
+  // public dataLista: Aula[];
 
+  public data: string;
 
   constructor(
     public navCtrl: NavController,
@@ -24,18 +27,37 @@ export class AulasPage {
   ) { }
 
   ionViewDidLoad() {
-    this.carregarAulas();
+    this.carregarDatas();
   }
 
-  private async carregarAulas() {
-    console.log('carregarAulas');
+  private carregarDatas(): void {
+    this.datas = this.aulaProvider.listaDatas();
 
-    this.aulas = this.aulaProvider.lista();
-    if (this.aulas) {
-      this.aulas.subscribe(aulas => {
-        console.log('aulas', aulas);
-      });
-    }
+    this.datas.first().subscribe(datas => {
+      if (datas.length > 0) {
+        this.data = datas[0];
+        this.carregarAulas(datas[0]);
+      }
+    });
+  }
+
+  private async carregarAulas(data:string) {
+    // console.log('carregarAulas');
+    // if (!this.aulas[data]) {
+    //   this.aulas[data] = this.aulaProvider.listaAulas(data);
+    //   if (this.aulas[data]) {
+    //     this.aulas[data].subscribe(aulas => {
+    //       console.log('aulas', aulas);
+    //     });
+    //   }
+    // }
+    // this.dataLista = this.aulas[data];
+    this.aulaProvider.listaAulas(data).subscribe(aulas => this.aulas = aulas);
+  }
+
+  public alterouData(ev) {
+    console.log('alterouData',ev);
+    this.carregarAulas(ev);
   }
 
   addItem() {
@@ -44,6 +66,8 @@ export class AulasPage {
       console.log(aula);
       if (aula) {
         this.aulaProvider.adicionar(aula);
+        this.data = aula.data;
+        this.carregarAulas(aula.data);
       }
     })
     addModal.present();
@@ -54,6 +78,8 @@ export class AulasPage {
     editModal.onDidDismiss(aula => {
       if (aula) {
         this.aulaProvider.editar(aula);
+        this.data = aula.data;
+        this.carregarAulas(aula.data);
       }
     })
     editModal.present();
@@ -71,7 +97,7 @@ export class AulasPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.aulaProvider.excluir(aula.key);
+            this.aulaProvider.excluir(aula);
           }
         }
       ]
@@ -80,8 +106,15 @@ export class AulasPage {
   }
 
   public getInfoAula(aula:Aula): string {
-    // return `${aula.data} ${aula.salaNome} (${aula.participantes}/${aula.potencial})`;
-    return `${aula.data} (${aula.participantes}/${aula.potencial})`;
+    const data = aula.data.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1');
+    const sala = this.aulaProvider.salas.find(s => s.key == aula.sala).nome;
+    return `${data} ${sala} (${aula.participantes}/${aula.potencial})`;
+  }
+
+  public getInfoAula2(aula:Aula): string {
+    const empresa = this.aulaProvider.empresas.find(e => e.key == aula.empresa).nome;
+    const cidade = this.aulaProvider.cidades.find(c => c.key == aula.cidade).nome;
+    return `${empresa} - ${cidade}`;
   }
 
 }
