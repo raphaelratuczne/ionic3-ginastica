@@ -31,7 +31,7 @@
           <h2>{{ empresa.nome }}</h2>
           <p>{{ empresa.email }}</p>
         </ion-label>
-        <ion-toggle [checked]="empresa.ativa"></ion-toggle>
+        <ion-toggle [(ngModel)]="empresa.ativa" (ionChange)="alterouAtiva($event, empresa)"></ion-toggle>
       </ion-item>
 
       <ion-item-options>

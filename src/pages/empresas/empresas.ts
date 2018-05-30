@@ -79,4 +79,10 @@ export class EmpresasPage {
   public goToDashboard() {
     this.app.goBack();
   }
+
+  public alterouAtiva(ev, empresa:Empresa): void {
+    console.log('alterouAtiva', ev, empresa);
+    empresa.ativa = ev.checked;
+    this.empresaProvider.editar(empresa);
+  }
 }
