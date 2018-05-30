@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Sala } from '../models/sala';
 
@@ -10,29 +10,23 @@ import { Sala } from '../models/sala';
 export class SalaProvider {
 
   private salasRef: AngularFireList<Sala>;
-  public salas: Observable<Sala[]>;
+  public salas: BehaviorSubject<Sala[]> = new BehaviorSubject(null);
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
-    this.carregar().subscribe();
-  }
-
-  private carregar(): Observable<Sala[]> {
-    return Observable.create(sub => {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         const uid = user.uid;
         this.salasRef = this.angularFireDatabase.list<Sala>(uid + '/salas');
-        this.salas = this.salasRef.snapshotChanges().pipe(
-          map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
-        ).share();
-        this.salas.subscribe(salas => sub.next(salas));
+        this.salasRef
+          .snapshotChanges()
+          .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
+          .subscribe(salas => this.salas.next(salas))
       }
     });
-    }).share();
   }
 
-  public lista(): Observable<Sala[]> {
-    return this.salas || this.carregar();
+  public lista(): BehaviorSubject<Sala[]> {
+    return this.salas;
   }
 
   public adicionar(sala:Sala): void {

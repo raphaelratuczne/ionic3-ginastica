@@ -67,8 +67,8 @@ export class SalasPage {
     confirm.present();
   }
 
-  public goToDashvoard() {
+  public goToDashboard() {
     this.app.goBack();
   }
-  
+
 }

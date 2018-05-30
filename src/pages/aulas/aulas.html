@@ -1,21 +1,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'LIST_CLASS_TITLE' | translate }}</ion-title>
 
-    <!-- <ion-buttons end>
-      <button ion-button icon-only (click)="addItem()">
-        <ion-icon name="add"></ion-icon>
+    <!-- <ion-buttons left>
+      <button ion-button icon-only (click)="goToDashboard()">
+        <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons> -->
+
+    <ion-title>{{ 'LIST_CLASS_TITLE' | translate }}</ion-title>
 
   </ion-navbar>
 
   <ion-item>
     <ion-label>{{ 'CLASS_DATE' | translate }}</ion-label>
-    <ion-select [(ngModel)]="data" cancelText="Cancelar" okText="Ok" (ionChange)="alterouData($event)">
-      <ion-option *ngFor="let d of datas | async" [value]="d">{{ d | date:'dd/MM/yyyy' }}</ion-option>
-    </ion-select>
+    <ion-datetime [(ngModel)]="data" displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" cancelText="Cancelar" okText="Ok" (ionChange)="alterouData($event)"></ion-datetime>
   </ion-item>
 
 </ion-header>
@@ -27,10 +26,16 @@
   </ion-fab>
 
   <ion-list>
+    <ion-item *ngIf="aulas && aulas.length == 0">
+      Não há registros para esse dia.
+    </ion-item>
+
     <ion-item-sliding *ngFor="let aula of aulas">
       <button ion-item>
         <h2>{{ getInfoAula(aula) }}</h2>
         <p>{{ getInfoAula2(aula) }}</p>
+        <p *ngIf="aula.falta">{{ getFalta(aula) }}</p>
+        <p class="observacoes" *ngIf="aula.observacao">{{ aula.observacao }}</p>
       </button>
 
       <ion-item-options>

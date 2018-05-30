@@ -67,7 +67,7 @@ export class CidadesPage {
     confirm.present();
   }
 
-  public goToDashvoard() {
+  public goToDashboard() {
     this.app.goBack();
   }
 

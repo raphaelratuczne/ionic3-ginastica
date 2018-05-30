@@ -71,7 +71,7 @@ export class AulaFormPage {
   }
 
   done() {
-    console.log(this.form.value);
+    // console.log(this.form.value);
     if (!this.form.valid) { return; }
     this.viewCtrl.dismiss(this.form.value);
   }

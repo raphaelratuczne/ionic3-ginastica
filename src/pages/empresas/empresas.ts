@@ -76,7 +76,7 @@ export class EmpresasPage {
     this.navCtrl.push('EmpresaEmailFormPage');
   }
 
-  public goToDashvoard() {
+  public goToDashboard() {
     this.app.goBack();
   }
 }

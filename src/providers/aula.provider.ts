@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Aula } from '../models/aula';
 import { Cidade } from '../models/cidade';
@@ -21,10 +21,10 @@ export class AulaProvider {
   private uid: string;
 
   private datasRef: AngularFireObject<any>;
-  public datas: Observable<any>;
+  public datas: BehaviorSubject<string[]> = new BehaviorSubject(null);
 
   private aulasRef: { [data:string]: AngularFireList<Aula> } = {};
-  public aulas: { [data:string]: Observable<Aula[]> } = {};
+  public aulas: { [data:string]: BehaviorSubject<Aula[]> } = {};
 
   public cidades: Cidade[];
   public empresas: Empresa[];
@@ -39,17 +39,14 @@ export class AulaProvider {
     private faltaProvider: FaltaProvider,
     private salaProvider: SalaProvider
   ) {
-    this.carregarDatas().subscribe();
-  }
+    this.angularFireAuth.authState.subscribe(async user => {
+      if (user) {
+        this.uid = user.uid;
 
-  private carregarDatas(): Observable<string[]> {
-    return Observable.create(subData => {
-      this.angularFireAuth.authState.subscribe(async user => {
-        if (user) {
-          this.uid = user.uid;
-
-          this.datasRef = this.angularFireDatabase.object(this.uid+'/datas');
-          this.datas = this.datasRef.snapshotChanges().map(d => {
+        this.datasRef = this.angularFireDatabase.object(this.uid+'/datas');
+        this.datasRef
+          .snapshotChanges()
+          .map(d => {
             let datas = d.payload.val();
             let arrDatas = [];
             if (datas) {
@@ -59,41 +56,37 @@ export class AulaProvider {
             }
             arrDatas.sort().reverse();
             return arrDatas;
-          }).share();
+          })
+          .subscribe(datas => this.datas.next(datas));
 
-          this.datas.subscribe(da => {
-            // console.log('datas', da);
-            subData.next(da);
-          });
-
-          this.cidadeProvider.lista().subscribe(cidades => this.cidades = cidades);
-          this.empresaProvider.lista().subscribe(empresas => this.empresas = empresas);
-          this.faltaProvider.lista().subscribe(faltas => this.faltas = faltas);
-          this.salaProvider.lista().subscribe(salas => this.salas = salas);
-        }
-      });
-    })
-    .share();
+        this.cidadeProvider.lista().subscribe(cidades => this.cidades = cidades);
+        this.empresaProvider.lista().subscribe(empresas => this.empresas = empresas);
+        this.faltaProvider.lista().subscribe(faltas => this.faltas = faltas);
+        this.salaProvider.lista().subscribe(salas => this.salas = salas);
+      }
+    });
   }
 
-  private carregarAulas(data:string): Observable<Aula[]> {
+  private carregarAulas(data:string): BehaviorSubject<Aula[]> {
     if (this.aulas[data]) {
-      return this.aulas[data].share();
+      return this.aulas[data];
     }
 
     this.aulasRef[data] = this.angularFireDatabase.list<Aula>(this.uid + '/aulas/' + data);
-    this.aulas[data] = this.aulasRef[data].snapshotChanges().pipe(
-      map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
-    );
+    this.aulas[data] = new BehaviorSubject(null);
+    this.aulasRef[data]
+      .snapshotChanges()
+      .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
+      .subscribe(aulas => this.aulas[data].next(aulas));
 
-    return this.aulas[data].share();
+    return this.aulas[data];
   }
 
   public listaDatas(): Observable<string[]> {
-    return this.datas || this.carregarDatas();
+    return this.datas;
   }
 
-  public listaAulas(data:string): Observable<Aula[]> {
+  public listaAulas(data:string): BehaviorSubject<Aula[]> {
     return this.carregarAulas(data);
   }
 

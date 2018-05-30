@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { AlertController, App } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/filter';
 
 import { Aula } from '../../models/aula';
 import { AulaProvider } from '../../providers/aula.provider';
@@ -15,15 +17,14 @@ export class AulasPage {
 
   public datas: Observable<string[]>;
   public aulas: Aula[];
-  // public dataLista: Aula[];
-
   public data: string;
 
   constructor(
-    public navCtrl: NavController,
-    public modalCtrl: ModalController,
-    public alertCtrl: AlertController,
-    private aulaProvider: AulaProvider
+    private navCtrl: NavController,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private aulaProvider: AulaProvider,
+    private app: App
   ) { }
 
   ionViewDidLoad() {
@@ -33,7 +34,7 @@ export class AulasPage {
   private carregarDatas(): void {
     this.datas = this.aulaProvider.listaDatas();
 
-    this.datas.first().subscribe(datas => {
+    this.datas.filter(datas => datas != null).first().subscribe(datas => {
       if (datas.length > 0) {
         this.data = datas[0];
         this.carregarAulas(datas[0]);
@@ -42,22 +43,12 @@ export class AulasPage {
   }
 
   private async carregarAulas(data:string) {
-    // console.log('carregarAulas');
-    // if (!this.aulas[data]) {
-    //   this.aulas[data] = this.aulaProvider.listaAulas(data);
-    //   if (this.aulas[data]) {
-    //     this.aulas[data].subscribe(aulas => {
-    //       console.log('aulas', aulas);
-    //     });
-    //   }
-    // }
-    // this.dataLista = this.aulas[data];
     this.aulaProvider.listaAulas(data).subscribe(aulas => this.aulas = aulas);
   }
 
   public alterouData(ev) {
-    console.log('alterouData',ev);
-    this.carregarAulas(ev);
+    // console.log('alterouData',ev);
+    this.carregarAulas(this.data);
   }
 
   addItem() {
@@ -106,15 +97,33 @@ export class AulasPage {
   }
 
   public getInfoAula(aula:Aula): string {
-    const data = aula.data.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1');
-    const sala = this.aulaProvider.salas.find(s => s.key == aula.sala).nome;
-    return `${data} ${sala} (${aula.participantes}/${aula.potencial})`;
+    if (this.aulaProvider.salas) {
+      const data = aula.data.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1');
+      const sala = this.aulaProvider.salas.find(s => s.key == aula.sala).nome;
+      return `${data} ${sala} (${aula.participantes}/${aula.potencial})`;
+    }
+    return '';
   }
 
   public getInfoAula2(aula:Aula): string {
-    const empresa = this.aulaProvider.empresas.find(e => e.key == aula.empresa).nome;
-    const cidade = this.aulaProvider.cidades.find(c => c.key == aula.cidade).nome;
-    return `${empresa} - ${cidade}`;
+    if (this.aulaProvider.empresas && this.aulaProvider.cidades) {
+      const empresa = this.aulaProvider.empresas.find(e => e.key == aula.empresa).nome;
+      const cidade = this.aulaProvider.cidades.find(c => c.key == aula.cidade).nome;
+      return `${empresa} - ${cidade}`;
+    }
+    return '';
   }
+
+  public getFalta(aula:Aula): string {
+    if (aula.falta && this.aulaProvider.faltas) {
+      const falta = this.aulaProvider.faltas.find(f => f.key == aula.falta).nome;
+      return 'Falta por: ' + falta;
+    }
+    return '';
+  }
+
+  // public goToDashboard() {
+  //   this.app.goBack();
+  // }
 
 }

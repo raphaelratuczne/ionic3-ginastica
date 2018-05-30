@@ -68,7 +68,7 @@ export class FaltasPage {
     confirm.present();
   }
 
-  public goToDashvoard() {
+  public goToDashboard() {
     this.app.goBack();
   }
 }
