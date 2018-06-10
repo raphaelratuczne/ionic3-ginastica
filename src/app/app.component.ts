@@ -1,15 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component/*, ViewChild*/ } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 
 // import { FirstRunPage, MainPage } from '../pages';
-import { Settings } from '../providers';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  template: `<ion-menu [content]="content">
+  template: `<!--<ion-menu [content]="content">
     <ion-header>
       <ion-toolbar>
         <ion-title>Pages</ion-title>
@@ -24,34 +23,24 @@ import { AuthService } from '../services/auth.service';
       </ion-list>
     </ion-content>
 
-  </ion-menu>
+  </ion-menu>-->
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
   rootPage = 'TutorialPage';
 
-  @ViewChild(Nav) nav: Nav;
+  // @ViewChild(Nav) nav: Nav;
 
-  pages: any[] = [
-    { title: 'Tutorial', component: 'TutorialPage' },
-    { title: 'Dashboard', component: 'DashboardPage' },
-    { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Empresas', component: 'EmpresasPage' },
-    { title: 'Cards', component: 'CardsPage' },
-    { title: 'Content', component: 'ContentPage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'Signup', component: 'SignupPage' },
-    { title: 'Aulas', component: 'AulasPage' },
-    { title: 'Formulario', component: 'AulaFormPage' },
-    { title: 'Menu', component: 'MenuPage' },
-    { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' }
-  ]
+  // pages: any[] = [
+  //   { title: 'Tutorial', component: 'TutorialPage' },
+  //   { title: 'Dashboard', component: 'DashboardPage' },
+  //   { title: 'Tabs', component: 'TabsPage' },
+  //   { title: 'Login', component: 'LoginPage' }
+  // ]
 
   constructor(
     private translate: TranslateService,
     platform: Platform,
-    settings: Settings,
     private config: Config,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
@@ -96,9 +85,9 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
-  }
+  // openPage(page) {
+  //   // Reset the content nav to have just this page
+  //   // we wouldn't want the back button to show in this scenario
+  //   this.nav.setRoot(page.component);
+  // }
 }

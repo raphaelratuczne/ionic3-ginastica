@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController, NavController } from 'ionic-angular';
-import { AlertController, App } from 'ionic-angular';
+import { IonicPage, ModalController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/filter';
@@ -20,11 +20,9 @@ export class AulasPage {
   public data: string;
 
   constructor(
-    private navCtrl: NavController,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private aulaProvider: AulaProvider,
-    private app: App
+    private aulaProvider: AulaProvider
   ) { }
 
   ionViewDidLoad() {
@@ -121,9 +119,5 @@ export class AulasPage {
     }
     return '';
   }
-
-  // public goToDashboard() {
-  //   this.app.goBack();
-  // }
 
 }

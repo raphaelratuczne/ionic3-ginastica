@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Empresa } from '../models/empresa';
-import { AuthService } from '../services/auth.service';
-
 
 @Injectable()
 export class EmpresaProvider {
@@ -16,7 +13,7 @@ export class EmpresaProvider {
   private uId: string;
   private empRef: AngularFireList<Empresa>;
 
-  constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase, private authService:AuthService) {
+  constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         this.uId = user.uid;

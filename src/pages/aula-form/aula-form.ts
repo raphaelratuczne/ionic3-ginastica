@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs';
+import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 
 import { Aula } from '../../models/aula';
 import { Empresa } from '../../models/empresa';
@@ -28,19 +27,18 @@ export class AulaFormPage {
   public faltas: Falta[];
 
   constructor(
-    private navCtrl: NavController,
     private viewCtrl: ViewController,
     private formBuilder: FormBuilder,
     private navParams: NavParams,
     private aulaProvider: AulaProvider
   ) {
-    this.item = navParams.get('item') || null;
+    this.item = this.navParams.get('item') || null;
 
     // seta data do dia
     let data = new Date();
     const dia = data.toISOString().split('T')[0];
 
-    this.form = formBuilder.group({
+    this.form = this.formBuilder.group({
       key:[null],
       data: [dia, Validators.required],
       empresa: [null, Validators.required],
