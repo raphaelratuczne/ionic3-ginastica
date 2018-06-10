@@ -3,7 +3,5 @@ export class Empresa {
   ativa: boolean;
   email: string;
   nome: string;
-  senha: string;
-  textoEmail: string;
   usuarioId: string;
 }

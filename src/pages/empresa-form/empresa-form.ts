@@ -22,9 +22,7 @@ export class EmpresaFormPage {
       key:[null],
       nome: ['', Validators.required],
       email: ['', Validators.required],
-      senha: ['', Validators.required],
       ativa: [true],
-      textoEmail: ['Texto enviado por email', Validators.required],
       usuarioId:[null]
     });
 
@@ -47,6 +45,7 @@ export class EmpresaFormPage {
   }
 
   done() {
+    console.log(this.form.value);
     if (!this.form.valid) { return; }
     this.viewCtrl.dismiss(this.form.value);
   }

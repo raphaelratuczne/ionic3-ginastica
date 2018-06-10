@@ -72,10 +72,6 @@ export class EmpresasPage {
 
   }
 
-  public editarTextoEmail() {
-    this.navCtrl.push('EmpresaEmailFormPage');
-  }
-
   public goToDashboard() {
     this.app.goBack();
   }

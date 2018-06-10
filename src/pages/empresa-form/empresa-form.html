@@ -24,7 +24,7 @@
 
 
 <ion-content>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
+  <form *ngIf="form" [formGroup]="form">
     <ion-list>
       <ion-item>
         <ion-label floating>{{ 'COMPANY_NAME' | translate }}</ion-label>
@@ -37,18 +37,8 @@
       </ion-item>
 
       <ion-item>
-        <ion-label floating>{{ 'COMPANY_PASS' | translate }}</ion-label>
-        <ion-input formControlName="senha"></ion-input>
-      </ion-item>
-
-      <ion-item>
         <ion-label>{{ 'COMPANY_ACTIVE' | translate }}</ion-label>
         <ion-toggle formControlName="ativa"></ion-toggle>
-      </ion-item>
-
-      <ion-item>
-        <ion-label floating>{{ 'COMPANY_TEXT_EMAIL' | translate }}</ion-label>
-        <ion-textarea rows="6" formControlName="textoEmail"></ion-textarea>
       </ion-item>
     </ion-list>
   </form>
