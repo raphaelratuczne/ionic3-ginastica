@@ -63,6 +63,7 @@ export class EmpresaProvider {
 
   public excluir(empresa:Empresa): void {
     empresa.visivel = false;
+    empresa.ativa = false;
     this.editar(empresa);
   }
 }
