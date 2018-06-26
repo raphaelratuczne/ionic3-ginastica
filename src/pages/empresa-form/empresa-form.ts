@@ -23,6 +23,7 @@ export class EmpresaFormPage {
       nome: ['', Validators.required],
       email: ['', Validators.required],
       ativa: [true],
+      visivel: [true],
       usuarioId:[null]
     });
 

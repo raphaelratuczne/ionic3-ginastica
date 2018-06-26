@@ -60,16 +60,12 @@ export class EmpresasPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.empresaProvider.excluir(empresa.key);
+            this.empresaProvider.excluir(empresa);
           }
         }
       ]
     });
     confirm.present();
-  }
-
-  public enviarEmail(item) {
-
   }
 
   public goToDashboard() {
