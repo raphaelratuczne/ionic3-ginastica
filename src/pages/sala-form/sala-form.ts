@@ -20,7 +20,8 @@ export class SalaFormPage {
 
     this.form = formBuilder.group({
       key:[null],
-      nome: ['', Validators.required]
+      nome: ['', Validators.required],
+      visivel: [true]
     });
 
     if (this.item)

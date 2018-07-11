@@ -5,4 +5,6 @@ export class Empresa {
   email: string;
   nome: string;
   usuarioId: string;
+  senha: string;
+  textoEmail: string;
 }

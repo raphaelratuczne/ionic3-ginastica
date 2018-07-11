@@ -47,7 +47,8 @@ export class AulaFormPage {
       potencial: [null, Validators.required],
       participantes: [null, Validators.required],
       falta: [null],
-      observacao: [null]
+      observacao: [null],
+      visivel: [true]
     });
 
     if (this.item) {

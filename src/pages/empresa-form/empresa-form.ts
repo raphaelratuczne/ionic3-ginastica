@@ -24,21 +24,16 @@ export class EmpresaFormPage {
       email: ['', Validators.required],
       ativa: [true],
       visivel: [true],
-      usuarioId:[null]
+      usuarioId: [null],
+      senha: [null],
+      textoEmail: [null, Validators.required]
     });
 
     if (this.item)
       this.form.patchValue(this.item);
-
-    // Watch the form for changes, and
-    // this.form.valueChanges.subscribe((v) => {
-    //   this.isReadyToSave = this.form.valid;
-    // });
   }
 
-  ionViewDidLoad() {
-
-  }
+  ionViewDidLoad() { }
 
 
   cancel() {

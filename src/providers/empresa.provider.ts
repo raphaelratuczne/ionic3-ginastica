@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AngularFireModule } from 'angularfire2';
 import firebase from 'firebase/app';
 
-import { firebaseAppConfig } from '../app/config';
+// import { firebaseAppConfig } from '../app/config';
 
 import { Empresa } from '../models/empresa';
 
@@ -21,10 +21,10 @@ export class EmpresaProvider {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         this.uId = user.uid;
-        this.empresasRef = this.angularFireDatabase.list<Empresa>(this.uId + '/empresas');
+        this.empresasRef = this.angularFireDatabase.list<Empresa>(this.uId + '/empresas', ref => ref.child('visivel').equalTo(true));
         this.empresasRef
           .snapshotChanges()
-          .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ).filter(e => e.visivel))
+          .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
           .subscribe(empresas => this.empresas.next(empresas));
         this.empRef = this.angularFireDatabase.list<Empresa>('empresas');
       }
@@ -40,17 +40,17 @@ export class EmpresaProvider {
     delete empresa.key;
     this.empresasRef.push(empresa)
       .then(salvou => {
-        console.log('salvou empresa');
+        // console.log('salvou empresa');
         this.empRef.update(salvou.key, empresa);
-        const secundario = firebase.initializeApp(firebaseAppConfig, 'secundario');
-        secundario.auth().createUserWithEmailAndPassword(empresa.email, '123456')
-          .then(ok => {
-            console.log('cadastrou user empresa', ok);
-            secundario.auth().sendPasswordResetEmail(empresa.email)
-              .then(okk => console.log('enviou email nova senha'))
-              .catch(err => console.log('erro ao enviar email', err))
-          })
-          .catch(er => console.log('erro ao cadatrar user', er));
+        // const secundario = firebase.initializeApp(firebaseAppConfig, 'secundario');
+        // secundario.auth().createUserWithEmailAndPassword(empresa.email, '123456')
+        //   .then(ok => {
+        //     console.log('cadastrou user empresa', ok);
+        //     secundario.auth().sendPasswordResetEmail(empresa.email)
+        //       .then(okk => console.log('enviou email nova senha'))
+        //       .catch(err => console.log('erro ao enviar email', err))
+        //   })
+        //   .catch(er => console.log('erro ao cadatrar user', er));
       });
   }
 

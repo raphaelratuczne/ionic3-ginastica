@@ -59,7 +59,7 @@ export class SalasPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.salaProvider.excluir(sala.key);
+            this.salaProvider.excluir(sala);
           }
         }
       ]

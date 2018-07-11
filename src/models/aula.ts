@@ -8,4 +8,5 @@ export class Aula {
   participantes: number;
   falta: string;
   observacao: string;
+  visivel: boolean;
 }

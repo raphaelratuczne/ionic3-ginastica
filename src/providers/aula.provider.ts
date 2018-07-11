@@ -72,7 +72,7 @@ export class AulaProvider {
       return this.aulas[data];
     }
 
-    this.aulasRef[data] = this.angularFireDatabase.list<Aula>(this.uid + '/aulas/' + data);
+    this.aulasRef[data] = this.angularFireDatabase.list<Aula>(this.uid + '/aulas/' + data, ref => ref.child('visivel').equalTo(true));
     this.aulas[data] = new BehaviorSubject(null);
     this.aulasRef[data]
       .snapshotChanges()
@@ -118,6 +118,8 @@ export class AulaProvider {
   }
 
   public excluir(aula:Aula): void {
-    this.aulasRef[aula.data].remove(aula.key);
+    // this.aulasRef[aula.data].remove(aula.key);
+    aula.visivel = false;
+    this.editar(aula);
   }
 }

@@ -15,7 +15,7 @@ export class SalaProvider {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         const uid = user.uid;
-        this.salasRef = this.angularFireDatabase.list<Sala>(uid + '/salas');
+        this.salasRef = this.angularFireDatabase.list<Sala>(uid + '/salas', ref => ref.child('visivel').equalTo(true));
         this.salasRef
           .snapshotChanges()
           .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
@@ -39,7 +39,9 @@ export class SalaProvider {
     this.salasRef.update(key, sala);
   }
 
-  public excluir(key:string): void {
-    this.salasRef.remove(key);
+  public excluir(sala:Sala): void {
+    // this.salasRef.remove(key);
+    sala.visivel = false;
+    this.editar(sala);
   }
 }

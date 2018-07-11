@@ -60,7 +60,7 @@ export class FaltasPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.faltaProvider.excluir(falta.key);
+            this.faltaProvider.excluir(falta);
           }
         }
       ]

@@ -59,7 +59,7 @@ export class CidadesPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.cidadeProvider.excluir(cidade.key);
+            this.cidadeProvider.excluir(cidade);
           }
         }
       ]

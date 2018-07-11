@@ -17,7 +17,7 @@ export class FaltaProvider {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         const uid = user.uid;
-        this.faltasRef = this.angularFireDatabase.list<Falta>(uid + '/faltas');
+        this.faltasRef = this.angularFireDatabase.list<Falta>(uid + '/faltas', ref => ref.child('visivel').equalTo(true));
         this.faltasRef
           .snapshotChanges()
           .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
@@ -32,7 +32,7 @@ export class FaltaProvider {
               'Atestado',
               'Cancelamento de Sessão',
               'Reunião' ].forEach(falta => {
-              this.adicionar({key:null, nome:falta});
+              this.adicionar({key:null, nome:falta, visivel:true});
             });
           }
         });
@@ -55,7 +55,9 @@ export class FaltaProvider {
     this.faltasRef.update(key, falta);
   }
 
-  public excluir(key:string): void {
-    this.faltasRef.remove(key);
+  public excluir(falta:Falta): void {
+    // this.faltasRef.remove(key);
+    falta.visivel = false;
+    this.editar(falta);
   }
 }

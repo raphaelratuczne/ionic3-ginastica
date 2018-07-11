@@ -16,7 +16,7 @@ export class CidadeProvider {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         const uid = user.uid;
-        this.cidadesRef = this.angularFireDatabase.list<Cidade>(uid + '/cidades');
+        this.cidadesRef = this.angularFireDatabase.list<Cidade>(uid + '/cidades', ref => ref.child('visivel').equalTo(true));
         this.cidadesRef
           .snapshotChanges()
           .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
@@ -40,8 +40,10 @@ export class CidadeProvider {
     this.cidadesRef.update(key, cidade);
   }
 
-  public excluir(key:string): void {
-    this.cidadesRef.remove(key);
+  public excluir(cidade:Cidade): void {
+    // this.cidadesRef.remove(key);
+    cidade.visivel = false;
+    this.editar(cidade);
   }
 }
 

@@ -77,4 +77,6 @@ export class EmpresasPage {
     empresa.ativa = ev.checked;
     this.empresaProvider.editar(empresa);
   }
+
+  public reenviarEmail(empresa:Empresa) {}
 }

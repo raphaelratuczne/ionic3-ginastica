@@ -63,7 +63,7 @@
   "CANCEL_BUTTON": "Cancelar",
   "DELETE_BUTTON": "Apagar",
   "EDIT_BUTTON": "Alterar",
-  "SEND_EMAIL_BUTTON": "Enviar E-mail",
+  "RESEND_EMAIL_BUTTON": "Reenviar E-mail",
 
   "CARDS_TITLE": "Social",
 
@@ -93,7 +93,6 @@
   "COMPANY_EDIT_EMAIL_TITLE": "Email Padrão para Empresas",
   "COMPANY_NAME": "Nome da Empresa",
   "COMPANY_EMAIL": "E-mail",
-  "COMPANY_PASS": "Senha temporaria",
   "COMPANY_ACTIVE": "Ativa",
   "COMPANY_TEXT_EMAIL": "Texto por email",
   "COMPANY_TEXT_SAMPLE_EMAIL": "Tetxo padrão por email",
