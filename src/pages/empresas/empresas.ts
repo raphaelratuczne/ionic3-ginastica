@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController, App } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Empresa } from '../../models/empresa';
 import { EmpresaProvider } from '../../providers/empresa.provider';
@@ -20,14 +21,15 @@ export class EmpresasPage {
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     private empresaProvider: EmpresaProvider,
-    private app: App
+    private app: App,
+    private translate: TranslateService
   ) { }
 
   ionViewDidLoad() {
     this.empresas = this.empresaProvider.lista();
   }
 
-  addItem() {
+  public addItem(): void {
     let addModal = this.modalCtrl.create('EmpresaFormPage');
     addModal.onDidDismiss(empresa => {
       if (empresa) {
@@ -37,7 +39,7 @@ export class EmpresasPage {
     addModal.present();
   }
 
-  editItem(empresa:Empresa) {
+  public editItem(empresa:Empresa): void {
     let addModal = this.modalCtrl.create('EmpresaFormPage', { item: empresa });
     addModal.onDidDismiss(empresa => {
       if (empresa) {
@@ -47,28 +49,29 @@ export class EmpresasPage {
     addModal.present();
   }
 
-  deleteItem(empresa:Empresa) {
-    // this.items.delete(item);
-    let confirm = this.alertCtrl.create({
-      title: 'Excluir Empresa',
-      message: 'Tem certeza que deseja excluir essa empresa?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {}
-        },
-        {
-          text: 'Excluir',
-          handler: () => {
-            this.empresaProvider.excluir(empresa);
+  public deleteItem(empresa:Empresa): void {
+    this.translate.get(['COMPANY_DELETE_TITLE','COMPANY_DELETE_MESSAGE','COMPANY_DELETE_YES','COMPANY_DELETE_NO']).first().subscribe(values => {
+      let confirm = this.alertCtrl.create({
+        title: values.COMPANY_DELETE_TITLE,
+        message: values.COMPANY_DELETE_MESSAGE,
+        buttons: [
+          {
+            text: values.COMPANY_DELETE_NO,
+            handler: () => {}
+          },
+          {
+            text: values.COMPANY_DELETE_YES,
+            handler: () => {
+              this.empresaProvider.excluir(empresa);
+            }
           }
-        }
-      ]
+        ]
+      });
+      confirm.present();
     });
-    confirm.present();
   }
 
-  public goToDashboard() {
+  public goToDashboard(): void {
     this.app.goBack();
   }
 
@@ -78,5 +81,5 @@ export class EmpresasPage {
     this.empresaProvider.editar(empresa);
   }
 
-  public reenviarEmail(empresa:Empresa) {}
+  public reenviarEmail(empresa:Empresa): void {}
 }

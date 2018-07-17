@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController, App } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Sala } from '../../models/sala';
 import { SalaProvider } from '../../providers/sala.provider';
@@ -20,7 +21,8 @@ export class SalasPage {
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     private salaProvider: SalaProvider,
-    private app: App
+    private app: App,
+    private translate: TranslateService
   ) { }
 
   ionViewDidLoad() {
@@ -48,23 +50,26 @@ export class SalasPage {
   }
 
   deleteItem(sala:Sala) {
-    let confirm = this.alertCtrl.create({
-      title: 'Excluir Sala',
-      message: 'Tem certeza que deseja excluir essa sala?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {}
-        },
-        {
-          text: 'Excluir',
-          handler: () => {
-            this.salaProvider.excluir(sala);
+    this.translate.get(['AREA_DELETE_TITLE','AREA_DELETE_MESSAGE','AREA_DELETE_YES','AREA_DELETE_NO']).subscribe(values => {
+      let confirm = this.alertCtrl.create({
+        title: values.AREA_DELETE_TITLE,
+        message: values.AREA_DELETE_MESSAGE,
+        buttons: [
+          {
+            text: values.AREA_DELETE_NO,
+            handler: () => {}
+          },
+          {
+            text: values.AREA_DELETE_YES,
+            handler: () => {
+              this.salaProvider.excluir(sala);
+            }
           }
-        }
-      ]
+        ]
+      });
+      confirm.present();
     });
-    confirm.present();
+
   }
 
   public goToDashboard() {

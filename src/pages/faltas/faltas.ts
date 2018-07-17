@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { AlertController, App } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Falta } from '../../models/falta';
 import { FaltaProvider } from '../../providers/falta.provider';
@@ -20,7 +21,8 @@ export class FaltasPage {
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     private faltaProvider: FaltaProvider,
-    private app: App
+    private app: App,
+    private translate: TranslateService
   ) { }
 
   ionViewDidLoad() {
@@ -48,24 +50,26 @@ export class FaltasPage {
   }
 
   deleteItem(falta:Falta) {
-    // this.items.delete(item);
-    let confirm = this.alertCtrl.create({
-      title: 'Excluir Falta',
-      message: 'Tem certeza que deseja excluir essa falta?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {}
-        },
-        {
-          text: 'Excluir',
-          handler: () => {
-            this.faltaProvider.excluir(falta);
+    this.translate.get(['ABSENCE_DELETE_TITLE','ABSENCE_DELETE_MESSAGE','ABSENCE_DELETE_YES','ABSENCE_DELETE_NO']).subscribe(values => {
+      let confirm = this.alertCtrl.create({
+        title: values.ABSENCE_DELETE_TITLE,
+        message: values.ABSENCE_DELETE_MESSAGE,
+        buttons: [
+          {
+            text: values.ABSENCE_DELETE_NO,
+            handler: () => {}
+          },
+          {
+            text: values.ABSENCE_DELETE_YES,
+            handler: () => {
+              this.faltaProvider.excluir(falta);
+            }
           }
-        }
-      ]
+        ]
+      });
+      confirm.present();
     });
-    confirm.present();
+
   }
 
   public goToDashboard() {

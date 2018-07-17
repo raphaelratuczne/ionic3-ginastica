@@ -96,20 +96,36 @@
   "COMPANY_ACTIVE": "Ativa",
   "COMPANY_TEXT_EMAIL": "Texto por email",
   "COMPANY_TEXT_SAMPLE_EMAIL": "Tetxo padrão por email",
+  "COMPANY_DELETE_TITLE": "Excluir Empresa",
+  "COMPANY_DELETE_MESSAGE": "Tem certeza que deseja excluir essa empresa?",
+  "COMPANY_DELETE_YES": "Excluir",
+  "COMPANY_DELETE_NO": "Cancelar",
 
   "LIST_CITIES": "Lista de Cidades",
   "CITY_CREATE_TITLE": "Nova Cidade",
   "CITY_EDIT_TITLE": "Alterar Cidade",
   "CITY_NAME": "Nome da Cidade",
+  "CITY_DELETE_TITLE": "Excluir Cidade",
+  "CITY_DELETE_MESSAGE": "Tem certeza que deseja excluir essa cidade?",
+  "CITY_DELETE_YES": "Excluir",
+  "CITY_DELETE_NO": "Cancelar",
 
   "LIST_AREAS": "Lista de Salas",
   "AREA_CREATE_TITLE": "Nova Sala",
   "AREA_EDIT_TITLE": "Alterar Sala",
   "AREA_NAME": "Nome da Sala",
+  "AREA_DELETE_TITLE": "Excluir Sala",
+  "AREA_DELETE_MESSAGE": "Tem certeza que deseja excluir essa sala?",
+  "AREA_DELETE_YES": "Excluir",
+  "AREA_DELETE_NO": "Cancelar",
 
   "LIST_ABSENCES": "Lista de Ausencias",
   "ABSENCE_CREATE_TITLE": "Nova Ausência",
   "ABSENCE_EDIT_TITLE": "Alterar Ausência",
-  "ABSENCE_NAME": "Descrição da Ausência"
+  "ABSENCE_NAME": "Descrição da Ausência",
+  "ABSENCE_DELETE_TITLE": "Excluir Falta",
+  "ABSENCE_DELETE_MESSAGE": "Tem certeza que deseja excluir essa falta?",
+  "ABSENCE_DELETE_YES": "Excluir",
+  "ABSENCE_DELETE_NO": "Cancelar"
 
 }
