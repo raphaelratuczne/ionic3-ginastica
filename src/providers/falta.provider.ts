@@ -17,7 +17,7 @@ export class FaltaProvider {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         const uid = user.uid;
-        this.faltasRef = this.angularFireDatabase.list<Falta>(uid + '/faltas', ref => ref.child('visivel').equalTo(true));
+        this.faltasRef = this.angularFireDatabase.list<Falta>(uid + '/faltas', ref => ref.orderByChild('visivel').equalTo(true));
         this.faltasRef
           .snapshotChanges()
           .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))

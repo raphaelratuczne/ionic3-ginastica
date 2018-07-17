@@ -21,7 +21,7 @@ export class EmpresaProvider {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         this.uId = user.uid;
-        this.empresasRef = this.angularFireDatabase.list<Empresa>(this.uId + '/empresas', ref => ref.child('visivel').equalTo(true));
+        this.empresasRef = this.angularFireDatabase.list<Empresa>(this.uId + '/empresas', ref => ref.orderByChild('visivel').equalTo(true));
         this.empresasRef
           .snapshotChanges()
           .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))

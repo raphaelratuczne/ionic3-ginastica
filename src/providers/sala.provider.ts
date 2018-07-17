@@ -15,7 +15,7 @@ export class SalaProvider {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         const uid = user.uid;
-        this.salasRef = this.angularFireDatabase.list<Sala>(uid + '/salas', ref => ref.child('visivel').equalTo(true));
+        this.salasRef = this.angularFireDatabase.list<Sala>(uid + '/salas', ref => ref.orderByChild('visivel').equalTo(true));
         this.salasRef
           .snapshotChanges()
           .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))
