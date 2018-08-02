@@ -9,7 +9,7 @@ import { Sala } from '../models/sala';
 export class SalaProvider {
 
   private salasRef: AngularFireList<Sala>;
-  public salas: BehaviorSubject<Sala[]> = new BehaviorSubject(null);
+  public salas: BehaviorSubject<Sala[]> = new BehaviorSubject([]);
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
     this.angularFireAuth.authState.subscribe(user => {

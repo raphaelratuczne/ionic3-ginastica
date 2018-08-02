@@ -10,7 +10,7 @@ import { Cidade } from '../models/cidade';
 export class CidadeProvider {
 
   private cidadesRef: AngularFireList<Cidade>;
-  public cidades: BehaviorSubject<Cidade[]> = new BehaviorSubject(null);
+  public cidades: BehaviorSubject<Cidade[]> = new BehaviorSubject([]);
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFireDatabase: AngularFireDatabase) {
     this.angularFireAuth.authState.subscribe(user => {

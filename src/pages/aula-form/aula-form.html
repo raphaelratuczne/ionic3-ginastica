@@ -20,21 +20,21 @@
       <ion-item>
         <ion-label>{{ 'CLASS_COMPANY' | translate }}</ion-label>
         <ion-select formControlName="empresa" cancelText="Cancelar" okText="Ok">
-          <ion-option *ngFor="let empresa of empresas" [value]="empresa.key">{{ empresa.nome }}</ion-option>
+          <ion-option *ngFor="let empresa of item.empresas" [value]="empresa.key">{{ empresa.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_CITY' | translate }}</ion-label>
         <ion-select formControlName="cidade"  cancelText="Cancelar" okText="Ok">
-          <ion-option *ngFor="let cidade of cidades" [value]="cidade.key">{{ cidade.nome }}</ion-option>
+          <ion-option *ngFor="let cidade of item.cidades" [value]="cidade.key">{{ cidade.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>{{ 'CLASS_AREA' | translate }}</ion-label>
         <ion-select formControlName="sala" cancelText="Cancelar" okText="Ok">
-          <ion-option *ngFor="let sala of salas" [value]="sala.key">{{ sala.nome }}</ion-option>
+          <ion-option *ngFor="let sala of item.salas" [value]="sala.key">{{ sala.nome }}</ion-option>
         </ion-select>
       </ion-item>
 
@@ -51,7 +51,7 @@
       <ion-item>
         <ion-label>{{ 'CLASS_ABSENCE' | translate }}</ion-label>
         <ion-select formControlName="falta" cancelText="Cancelar" okText="Ok">
-          <ion-option *ngFor="let falta of faltas" [value]="falta.key">{{ falta.nome }}</ion-option>
+          <ion-option *ngFor="let falta of item.faltas" [value]="falta.key">{{ falta.nome }}</ion-option>
         </ion-select>
       </ion-item>
 

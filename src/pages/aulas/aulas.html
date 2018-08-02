@@ -32,9 +32,9 @@
 
     <ion-item-sliding *ngFor="let aula of aulas">
       <button ion-item>
-        <h2>{{ getInfoAula(aula) }}</h2>
-        <p>{{ getInfoAula2(aula) }}</p>
-        <p *ngIf="aula.falta">{{ getFalta(aula) }}</p>
+        <h2>{{ getSala(aula.sala) + ' - ' + aula.participantes + ' de ' + aula.potencial + ' participantes' }}</h2>
+        <p>{{ getEmpresa(aula.empresa) + ' - ' + getCidade(aula.cidade) }}</p>
+        <p *ngIf="aula.falta">Falta por: {{ getFalta(aula.falta) }}</p>
         <p class="observacoes" *ngIf="aula.observacao">{{ aula.observacao }}</p>
       </button>
 

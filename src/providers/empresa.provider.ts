@@ -13,7 +13,7 @@ import { Empresa } from '../models/empresa';
 export class EmpresaProvider {
 
   private empresasRef: AngularFireList<Empresa>;
-  public empresas: BehaviorSubject<Empresa[]> = new BehaviorSubject(null);
+  public empresas: BehaviorSubject<Empresa[]> = new BehaviorSubject([]);
   private uId: string;
   private empRef: AngularFireList<Empresa>;
 

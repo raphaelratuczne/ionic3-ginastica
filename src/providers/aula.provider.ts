@@ -5,15 +5,6 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Aula } from '../models/aula';
-import { Cidade } from '../models/cidade';
-import { Empresa } from '../models/empresa';
-import { Falta } from '../models/falta';
-import { Sala } from '../models/sala';
-
-import { CidadeProvider } from './cidade.provider';
-import { EmpresaProvider } from './empresa.provider';
-import { FaltaProvider } from './falta.provider';
-import { SalaProvider } from './sala.provider';
 
 @Injectable()
 export class AulaProvider {
@@ -26,20 +17,11 @@ export class AulaProvider {
   private aulasRef: { [data:string]: AngularFireList<Aula> } = {};
   public aulas: { [data:string]: BehaviorSubject<Aula[]> } = {};
 
-  public cidades: Cidade[];
-  public empresas: Empresa[];
-  public faltas: Falta[];
-  public salas: Sala[];
-
   constructor(
     private angularFireAuth: AngularFireAuth,
-    private angularFireDatabase: AngularFireDatabase,
-    private cidadeProvider: CidadeProvider,
-    private empresaProvider: EmpresaProvider,
-    private faltaProvider: FaltaProvider,
-    private salaProvider: SalaProvider
+    private angularFireDatabase: AngularFireDatabase
   ) {
-    this.angularFireAuth.authState.subscribe(async user => {
+    this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         this.uid = user.uid;
 
@@ -58,11 +40,6 @@ export class AulaProvider {
             return arrDatas;
           })
           .subscribe(datas => this.datas.next(datas));
-
-        this.cidadeProvider.lista().subscribe(cidades => this.cidades = cidades);
-        this.empresaProvider.lista().subscribe(empresas => this.empresas = empresas);
-        this.faltaProvider.lista().subscribe(faltas => this.faltas = faltas);
-        this.salaProvider.lista().subscribe(salas => this.salas = salas);
       }
     });
   }
@@ -73,7 +50,7 @@ export class AulaProvider {
     }
 
     this.aulasRef[data] = this.angularFireDatabase.list<Aula>(this.uid + '/aulas/' + data, ref => ref.orderByChild('visivel').equalTo(true));
-    this.aulas[data] = new BehaviorSubject(null);
+    this.aulas[data] = new BehaviorSubject([]);
     this.aulasRef[data]
       .snapshotChanges()
       .map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }) ))

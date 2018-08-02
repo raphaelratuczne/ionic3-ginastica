@@ -17,14 +17,15 @@ import { AulaProvider } from '../../providers/aula.provider';
 })
 export class AulaFormPage {
 
-  item: Aula;
+  public item: {
+    aula?: Aula,
+    empresas: Empresa[],
+    cidades: Cidade[],
+    salas: Sala[],
+    faltas: Falta[]
+  };
 
   form: FormGroup;
-
-  public empresas: Empresa[];
-  public cidades: Cidade[];
-  public salas: Sala[];
-  public faltas: Falta[];
 
   constructor(
     private viewCtrl: ViewController,
@@ -51,17 +52,14 @@ export class AulaFormPage {
       visivel: [true]
     });
 
-    if (this.item) {
-      this.form.patchValue(this.item);
+    if (this.item && this.item.aula) {
+      this.form.patchValue(this.item.aula);
     }
 
   }
 
   ionViewDidLoad() {
-    this.empresas = this.aulaProvider.empresas;
-    this.cidades = this.aulaProvider.cidades;
-    this.salas = this.aulaProvider.salas;
-    this.faltas = this.aulaProvider.faltas;
+
   }
 
   cancel(ev:Event) {
